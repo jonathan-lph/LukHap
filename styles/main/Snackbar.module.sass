@@ -1,0 +1,30 @@
+@import '../theme'
+
+.root
+  position: fixed
+  top: 20%
+  left: 50%
+  transform: translateX(-50%)
+  padding: spacing(3, 5)
+  width: 200px
+  height: 50px
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: $border-radius
+  @include themed()
+    color: palette('text.primary')
+  transition: opacity 200ms ease-in-out
+  opacity: 0
+
+  &.error
+    opacity: 1
+    @include themed()
+      color: palette('text.primary')
+      background-color: transparentize(palette('error.main'), 0.5)
+      
+  &.success
+    opacity: 1
+    @include themed()
+      color: palette('text.primary')
+      background-color: transparentize(palette('background.paper'), 0.5)

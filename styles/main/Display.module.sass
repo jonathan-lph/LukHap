@@ -1,0 +1,79 @@
+@use 'sass:math'
+@import '../theme'
+
+.root
+  flex: 1
+  display: flex
+  justify-content: center
+  align-items: center
+
+.board
+  width: clamp(300px, 350px, 100%)
+  display: grid
+  grid-template-columns: repeat(6, 1fr)
+  gap: spacing(1.5)
+
+  .row
+    display: contents
+
+    .tile
+      aspect-ratio: 1
+      display: flex
+      justify-content: center
+      align-items: center
+      text-transform: uppercase
+      font-size: 1.5rem
+      font-weight: map-get($typography, 'fontWeight', bold)
+      @include themed()
+        background-color: transparentize(palette('background.default'), 1)
+        border: 2px solid palette('background.paper2')
+        color: palette('text.primary')
+      transition: background-color 200ms ease-in-out
+
+      &.absent, &.present, &.correct
+        animation: flip $flip-duration ease-in-out forwards
+        transition: background-color 0ms, border 0ms
+
+      @for $i from 1 through 6
+        &.absent:nth-child(#{$i}), 
+        &.present:nth-child(#{$i}), 
+        &.correct:nth-child(#{$i})
+          animation-delay: $flip-duration * $i
+          transition-delay: ($flip-duration * $i) + math.div($flip-duration, 2)
+
+      &.absent
+        @include themed()
+          border: 2px solid palette('background.paper2')
+          background-color: palette('background.paper2')
+
+      &.present
+        @include themed()
+          border: 2px solid palette('warning.main')
+          background-color: palette('warning.main')
+
+      &.correct
+        @include themed()
+          border: 2px solid palette('success.main')
+          background-color: palette('success.main')
+
+      &.error
+        @include themed()
+          
+          background-color: transparentize(palette('error.main'), 0.8)
+
+      &.entered
+        animation: scale 100ms ease-in-out forwards
+        @include themed()
+          border: 2px solid palette('background.paper')
+
+@keyframes scale
+  50%
+    transform: scale(1.1)
+  100%
+    transform: none
+
+@keyframes flip
+  50%
+    transform: rotateX(90deg)
+  100%
+    transform: none
