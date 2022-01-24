@@ -3,6 +3,7 @@ import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
 import { Keyboard, Display, Snackbar, Header } from '@components/main'
+import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
@@ -75,13 +76,19 @@ const answer = ['s','i','k','s','i','-']
 
 export default function Home() {
 
+  // Game States
   const [inputs, setInputs] = useState(copyArray(INIT_ARR))
   const [evaluations, setEvaluations] = useState(Array.from({length: 6}).map(_ => null))
   const [guessed, setGuessed] = useState({})
   const [curr, setCurr] = useState({row: 0, entry: 0})
+
+  // Flags
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
   const [ending, setEnding] = useState(null)
+  const [settings, setSettings] = useState(false)
+
+  const [hardMode, setHardMode] = useState(false)
 
   const setStatus = (mode, content) => {
     if (mode === 'error') {
@@ -121,8 +128,27 @@ export default function Home() {
   const handleSubmit = e => {
     if (ending) return
     if (curr.entry !== 6) return setStatus('error', '唔夠字數喎')
+
+    if (hardMode && curr.row !== 0) {
+      const currInput = inputs[curr.row]
+      const prevInput = inputs[curr.row-1]
+      const prevEval = evaluations[curr.row-1]
+      const currInputWithoutCorrect = currInput.reduce((acc, word, i) => {
+        if (prevEval[i] === 'correct') return acc
+        return [...acc, word]
+      }, [])
+      for (let i = 0; i < 6; i++) {
+        if (prevEval[i] === 'absent') continue;
+        if (prevEval[i] === 'correct' && prevInput[i] !== currInput[i]) 
+          return setStatus('error', `第 ${i+1} 個字要係 ${prevInput[i].toUpperCase()}`)
+        if (prevEval[i] === 'present' && !currInputWithoutCorrect.includes(prevInput[i])) 
+          return setStatus('error', `一定要包括 ${prevInput[i].toUpperCase()}`)
+      }
+    }
+
     const result = searchWord(inputs[curr.row])
     if (!result) return setStatus('error', '揾唔到依個詞')
+
     const evaluation = evaluate(inputs[curr.row], answer, guessed)
     setEvaluations(prevEval => {
       prevEval[curr.row] = evaluation.evaluation
@@ -136,6 +162,24 @@ export default function Home() {
     })
   }
 
+  const handleToggleSettings = e => setSettings(!settings)
+  const handleToggleHardMode = e => setHardMode(!hardMode)
+
+  useEffect(() => {
+    localStorage.setItem('gameState', JSON.stringify({
+      gameBoard: inputs,
+      evaluations,
+      hardMode,
+      guessed,
+      rowIndex: curr.row,
+      solution: answer,
+      gameStatus: ending === -1 ? 'LOST'
+        : ending ? 'WON'
+        : 'IN_PROGRESS'
+    }))
+  }, [curr.row, hardMode, ending])
+
+  // Determine game over
   useEffect(() => {
     if (curr.row === 0 || !evaluations[curr.row-1]) return
     const allCorrect = row => evaluations[row].every(elem => elem === 'correct')
@@ -157,6 +201,7 @@ export default function Home() {
 
       <div className={styles.root}>
         <Header
+          handleToggleSettings={handleToggleSettings}
         />
         <Display 
           inputs={inputs} 
@@ -175,10 +220,13 @@ export default function Home() {
           success={success} 
           error={error}
         />
+        <SettingsDialog
+          open={settings}
+          handleClose={handleToggleSettings}
+          hardMode={hardMode}
+          handleToggleHardMode={handleToggleHardMode}
+        />
       </div>
-
-      
-
     </Fragment>
   )
 }
