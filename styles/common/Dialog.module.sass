@@ -1,0 +1,55 @@
+@import '../theme'
+
+.backdrop
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 1001
+  background-color: rgba(0, 0, 0, .6)
+
+.inner
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100%
+  
+.root 
+  width: clamp(300px, 400px, 95%)
+  border-radius: $border-radius
+  border: 0
+  padding: 0
+  position: relative
+  max-height: 100vh
+  max-height: var(--app-height, 100vh)
+  min-height: 50px
+
+  @include themed()
+    background-color: palette('background.paper2')
+    color: palette('text.primary')
+
+  animation: slide-up 500ms ease-in-out
+
+.close
+  position: absolute
+  top: spacing(4)
+  right: spacing(4)
+  cursor: pointer
+  @include themed()
+    color: palette('text.secondary')
+
+  &:hover
+    @include themed()
+      color: palette('text.primary')
+
+@keyframes slide-up
+  0%
+    opacity: 0
+    transfrom: translateY(100px)
+  75%
+    opacity: 1
+    transform: translateY(-5px)
+  100%
+    transform: none
+    

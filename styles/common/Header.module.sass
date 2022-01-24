@@ -14,6 +14,16 @@
     display: flex
     align-items: center
     justify-content: center
+    
+    .button
+      margin: spacing(1)
+      cursor: pointer
+      @include themed()
+        color: palette('background.paper')
+      &:hover
+        @include themed()
+          color: palette('text.primary')
+
 
   .title
     flex: 1
