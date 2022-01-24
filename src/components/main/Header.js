@@ -1,10 +1,10 @@
-import styles from '@styles/common/Header.module.sass'
+import styles from '@styles/main/Header.module.sass'
 import clsx from 'clsx'
 import { Settings, HelpOutline, Statistics, Cafe } from '@components/icons'
 import { Fragment, useState } from 'react'
-import { Dialog } from '@components/common'
+import { HelpDialog } from '@components/dialog'
 
-export default function Header() {
+export default function Header({ handleToggleSettings }) {
 
   const [open, setOpen] = useState({
     help: false
@@ -26,7 +26,9 @@ export default function Header() {
             className={styles.button}
             onClick={handleOpen('help')}
           />
-          <Cafe className={styles.button}/>
+          <Cafe 
+            className={styles.button}
+          />
         </div>
         <div className={styles.title}>
           Cidou 詞道
@@ -35,17 +37,21 @@ export default function Header() {
           </span>
         </div>
         <div className={styles.buttons}>
-          <Statistics className={styles.button}/>
-          <Settings className={styles.button}/>
+          <Statistics 
+            className={styles.button}
+          />
+          <Settings 
+            className={styles.button}
+            onClick={handleToggleSettings}
+          />
         </div>
       </header>
 
-      {open.help && 
-        <Dialog
-          open={open.help}
-          handleClose={handleClose('help')}
-        />
-      }
+      <HelpDialog
+        open={open.help}
+        handleClose={handleClose('help')}
+      />
+    
 
     </Fragment>
   )

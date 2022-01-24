@@ -2,7 +2,6 @@
 
 .root
   max-width: $main-window-width
-  margin: 0 auto
   padding: spacing(0, 2)
   height: $header-height
   display: flex
@@ -18,8 +17,10 @@
     .button
       margin: spacing(1)
       cursor: pointer
+      transition: color 100ms ease-in-out
       @include themed()
         color: palette('background.paper')
+
       &:hover
         @include themed()
           color: palette('text.primary')

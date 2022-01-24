@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
-import { Keyboard, Display, Snackbar } from '@components/main'
+import { Keyboard, Display, Snackbar, Header } from '@components/main'
 import WORD_LIST from '@util/words.json'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
@@ -156,6 +156,8 @@ export default function Home() {
       </Head>
 
       <div className={styles.root}>
+        <Header
+        />
         <Display 
           inputs={inputs} 
           evaluations={evaluations}
