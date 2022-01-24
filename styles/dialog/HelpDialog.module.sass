@@ -1,0 +1,54 @@
+@import '../theme'
+
+.root
+
+  .title
+    text-align: center
+    padding: spacing(6, 4)
+    font-size: 1.3rem
+    font-weight: map-get($typography, fontWeight, bold)
+
+  p
+    padding: spacing(2, 4)
+
+  .examples
+    padding: spacing(4)
+
+  .tiles
+    display: flex
+    gap: spacing(1)
+    justify-content: center 
+
+    .tile
+      width: 40px
+      aspect-ratio: 1
+      display: flex
+      justify-content: center
+      align-items: center
+      text-transform: uppercase
+      font-size: 1.25rem
+      font-weight: map-get($typography, 'fontWeight', bold)
+      @include themed()
+        background-color: transparentize(palette('background.default'), 1)
+        border: 2px solid palette('background.paper2')
+        color: palette('text.primary')
+
+      &.absent
+        @include themed()
+          border: 2px solid palette('background.paper2')
+          background-color: palette('background.paper2')
+
+      &.present
+        @include themed()
+          border: 2px solid palette('warning.main')
+          background-color: palette('warning.main')
+
+      &.correct
+        @include themed()
+          border: 2px solid palette('success.main')
+          background-color: palette('success.main')
+
+  .description
+    text-align: center
+    margin: spacing(2, 0, 3)
+

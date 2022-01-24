@@ -16,7 +16,7 @@
   height: 100%
   
 .root 
-  width: clamp(300px, 400px, 95%)
+  width: clamp(300px, 450px, 95%)
   border-radius: $border-radius
   border: 0
   padding: 0
@@ -24,12 +24,11 @@
   max-height: 100vh
   max-height: var(--app-height, 100vh)
   min-height: 50px
+  animation: slide-up 500ms ease-in-out
 
   @include themed()
-    background-color: palette('background.paper2')
+    background-color: palette('background.default')
     color: palette('text.primary')
-
-  animation: slide-up 500ms ease-in-out
 
 .close
   position: absolute

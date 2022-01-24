@@ -1,0 +1,70 @@
+@use 'sass:math'
+@import '../theme'
+
+.title
+  text-align: center
+  padding: spacing(6, 4)
+  font-size: 1.3rem
+  font-weight: map-get($typography, fontWeight, bold)
+  @include themed()
+    border-bottom: 1px solid palette('misc.divider')
+
+.options
+  display: grid
+  grid-template-columns: repeat(2, max-content)
+  justify-content: center
+  padding: spacing(6)
+  gap: spacing(4)
+
+  .optionInfo
+    display: flex
+    flex-direction: column
+    justify-content: center
+    gap: spacing(.5)
+
+  .optionTitle
+    font-size: 1.1rem
+    font-weight: map-get($typography, 'fontWeight', bold)
+
+  .optionDesc
+    font-size: 0.8rem
+    @include themed()
+      color: palette('text.secondary')
+  
+
+.tile
+  aspect-ratio: 1
+  width: 50px
+  display: flex
+  justify-content: center
+  align-items: center
+  text-transform: uppercase
+  font-size: 1.5rem
+  font-weight: map-get($typography, 'fontWeight', bold)
+  cursor: pointer
+  @include themed()
+    color: palette('text.primary')
+
+  &.enabled
+    animation: flip-in $flip-duration ease-in-out forwards
+    @include themed()
+      border: 2px solid palette('success.main')
+      background-color: palette('success.main')
+
+  &.disabled
+    animation: flip-out $flip-duration ease-in-out forwards
+    @include themed()
+      border: 2px solid palette('background.paper2')
+
+@keyframes flip-in
+  50% 
+    transform: rotateX(90deg)
+  100% 
+    transform: none
+
+@keyframes flip-out
+  50% 
+    transform: rotateX(90deg)
+  100% 
+    transform: none
+  
