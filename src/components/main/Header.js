@@ -4,10 +4,10 @@ import { Settings, HelpOutline, Statistics, Cafe } from '@components/icons'
 import { Fragment, useState } from 'react'
 import { HelpDialog } from '@components/dialog'
 
-export default function Header({ handleToggleSettings }) {
+export default function Header({ handleToggleDialog }) {
 
   const [open, setOpen] = useState({
-    help: false
+    help: false,
   })
 
   const handleOpen = key => e => {
@@ -39,10 +39,11 @@ export default function Header({ handleToggleSettings }) {
         <div className={styles.buttons}>
           <Statistics 
             className={styles.button}
+            onClick={handleToggleDialog('statistics')}
           />
           <Settings 
             className={styles.button}
-            onClick={handleToggleSettings}
+            onClick={handleToggleDialog('settings')}
           />
         </div>
       </header>

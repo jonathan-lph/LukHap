@@ -2,9 +2,10 @@ import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
-import { Keyboard, Display, Snackbar, Header } from '@components/main'
+import { Keyboard, Display, Snackbar, Header, Statistics } from '@components/main'
 import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
+import StatisticsDialog from '@src/components/dialog/StatisticsDialog'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
 
@@ -86,7 +87,10 @@ export default function Home() {
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
   const [ending, setEnding] = useState(null)
-  const [settings, setSettings] = useState(false)
+  const [dialog, setDialog] = useState({
+    settings: false,
+    statistics: false
+  })
 
   const [hardMode, setHardMode] = useState(false)
 
@@ -162,7 +166,10 @@ export default function Home() {
     })
   }
 
-  const handleToggleSettings = e => setSettings(!settings)
+  const handleToggleDialog = panel => e => setDialog({
+    ...dialog,
+    [panel]: !dialog[panel]
+  })
   const handleToggleHardMode = e => setHardMode(!hardMode)
 
   useEffect(() => {
@@ -201,7 +208,7 @@ export default function Home() {
 
       <div className={styles.root}>
         <Header
-          handleToggleSettings={handleToggleSettings}
+          handleToggleDialog={handleToggleDialog}
         />
         <Display 
           inputs={inputs} 
@@ -221,10 +228,14 @@ export default function Home() {
           error={error}
         />
         <SettingsDialog
-          open={settings}
-          handleClose={handleToggleSettings}
+          open={dialog.settings}
+          handleClose={handleToggleDialog('settings')}
           hardMode={hardMode}
           handleToggleHardMode={handleToggleHardMode}
+        />
+        <StatisticsDialog
+          open={dialog.statistics}
+          handleClose={handleToggleDialog('statistics')}
         />
       </div>
     </Fragment>
