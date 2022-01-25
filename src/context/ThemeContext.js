@@ -33,10 +33,7 @@ export function ThemeProvider({ children }) {
     <ThemeContext.Provider value={{
       dark, toggleDarkMode, 
     }}>
-      <div id="themed-app" className={clsx({
-        'theme--light': !dark,
-        'theme--dark': dark
-      })}>
+      <div id="themed-app" data-theme={dark ? 'dark' : 'light'}>
         {children}
       </div>
     </ThemeContext.Provider>

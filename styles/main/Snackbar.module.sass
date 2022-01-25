@@ -12,19 +12,16 @@
   justify-content: center
   align-items: center
   border-radius: $border-radius
-  @include themed()
-    color: palette('text.primary')
+  color: palette(text, primary)
   transition: opacity 200ms ease-in-out
   opacity: 0
 
   &.error
     opacity: 1
-    @include themed()
-      color: palette('text.primary')
-      background-color: transparentize(palette('error.main'), 0.5)
+    color: palette(text, primary)
+    background-color: palette(tile, error) // TRANS .5
       
   &.success
     opacity: 1
-    @include themed()
-      color: palette('text.primary')
-      background-color: transparentize(palette('background.paper'), 0.5)
+    color: palette(text, primary)
+    background-color: palette(background, paper) // TRANS .5

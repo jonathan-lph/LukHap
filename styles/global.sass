@@ -12,6 +12,8 @@ html
   background: white
   color: black
 
+// Resets
+
 *
   padding: 0
   margin: 0
@@ -21,10 +23,28 @@ button
   border: 0
   outline: 0
 
-.theme--dark
-  background: map-get($palette, 'dark', 'background', 'default')
-  color: map-get($palette, 'dark', 'text', 'default')
+// Set up CSS Variables
+// Ref: https://codepen.io/jakealbaugh/post/css4-variables-and-sass
 
-.theme--light
-  background: map-get($palette, 'light', 'background', 'default')
-  color: map-get($palette, 'light', 'text', 'default')
+:root
+  @each $name, $color in $light-colors
+    @if type-of($color) == "map" 
+      @each $subname, $subcolor in $color 
+        --#{$name}-#{$subname}: #{$subcolor}   
+    @else if type-of($color) == "color" 
+      --#{$name}: $color
+
+[data-theme='dark']
+  @each $name, $color in $dark-colors
+    @if type-of($color) == "map" 
+      @each $subname, $subcolor in $color 
+        --#{$name}-#{$subname}: #{$subcolor}   
+    @else if type-of($color) == "color" 
+      --#{$name}: $color
+
+// Base background & color
+
+#themed-app
+  background: palette(background, default)
+  color: palette(text, primary)
+

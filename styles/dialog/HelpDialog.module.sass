@@ -1,4 +1,5 @@
 @import '../theme'
+@import '../animations'
 
 .root
 
@@ -28,25 +29,13 @@
       text-transform: uppercase
       font-size: 1.25rem
       font-weight: map-get($typography, 'fontWeight', bold)
-      @include themed()
-        background-color: transparentize(palette('background.default'), 1)
-        border: 2px solid palette('background.paper2')
-        color: palette('text.primary')
+      background-color: #7f7f7f00 // TRANS 1
+      border: 2px solid palette(background, paper2)
+      color: palette(text, primary)
 
-      &.absent
-        @include themed()
-          border: 2px solid palette('background.paper2')
-          background-color: palette('background.paper2')
-
-      &.present
-        @include themed()
-          border: 2px solid palette('warning.main')
-          background-color: palette('warning.main')
-
-      &.correct
-        @include themed()
-          border: 2px solid palette('success.main')
-          background-color: palette('success.main')
+      @each $state in $flip-states
+        &.#{$state}
+          animation: flip-#{$state} $flip-duration ease-in-out forwards
 
   .description
     text-align: center

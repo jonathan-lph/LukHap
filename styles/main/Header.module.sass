@@ -6,8 +6,7 @@
   height: $header-height
   display: flex
   box-shadow: 0 1px 0 rgba(4,4,5,0.8), 0 1.5px 0 rgba(6,6,7,0.05), 0 2px 0 rgba(4,4,5,0.05)
-  @include themed()
-    color: palette('text.primary')
+  color: palette(text, primary)
 
   .buttons
     display: flex
@@ -18,12 +17,10 @@
       margin: spacing(1)
       cursor: pointer
       transition: color 100ms ease-in-out
-      @include themed()
-        color: palette('background.paper')
+      color: palette(background, paper)
 
       &:hover
-        @include themed()
-          color: palette('text.primary')
+        color: palette(text, primary)
 
 
   .title

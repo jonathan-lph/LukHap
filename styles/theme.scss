@@ -1,105 +1,14 @@
-$palette : (
-  dark: (
-    common: (
-      black: #000,
-      white: #fff,
-    ),
-    primary: (
-      main:  #9d53da,
-      light: #d183ff,
-      dark:  #6a23a8,
-      contrastText: #fff
-    ),
-    error: (
-      main:  #f44336,
-      light: #e57373,
-      dark:  #d32f2f,
-    ),
-    warning: (
-      main:  #ffa726,
-      light: #ffb74d,
-      dark:  #f57c00
-    ),
-    success: (
-      main:  #66bb6a,
-      light: #81c784,
-      dark:  #388e3c,
-    ),
-    text: (
-      primary:   #ffffff,
-      faded:     rgba(#ffffff, 0.75),
-      secondary: #82868c,
-    ),
-    background: (
-      default: #121213,
-      paper:   #818384,
-      paper2:  #3a3a3c,
-      navbar:  #17181a,
-    ),
-    misc: (
-      divider: rgba(255, 255, 255, .12),
-      scrollTrack: #2f3134,
-      scrollThumb: #17181a,
-    ),
-    action: (
-      hover: rgba(255, 255, 255, 0.05),
-      select: rgba(255, 255, 255, 0.1),
-      disabled: rgba(255, 255, 255, 0.26),
-      disabledBg: rgba(255, 255, 255, 0.15),
-      disabledOpacity: 0.38,
-    )
-  ),
-  light: (
-    common: (
-      black: #000,
-      white: #fff,
-    ),
-    primary: (
-      main:  #9600ff,
-      light: #ce50ff,
-      dark:  #5c00ca,
-      contrastText: #fff
-    ),
-    error: (
-      main:  #d32f2f,
-      light: #e45350,
-      dark:  #c62828,
-    ),
-    warning: (
-      main:  #ed6c02,
-      light: #ff9800,
-      dark:  #e65100,
-    ),
-    success: (
-      main:  #2e7d32,
-      light: #4caf50,
-      dark:  #1b5e20,
-    ),
-    text: (
-      primary:   #181818,
-      faded:     rgba(#181818, 0.75),
-      secondary: #82868c,
-    ),
-    background: (
-      default: #f5f4f3,
-      paper:   #eff0f2,
-      paper2:  #dfe1e6,
-      navbar:  #D5D5DC,
-    ),
-    misc: (
-      divider: rgba(0, 0, 0, .12),
-      scrollTrack: #eff0f2,
-      scrollThumb: #D5D5DC,
-    ),
-    action: (
-      hover: rgba(0, 0, 0, 0.05),
-      select: rgba(0, 0, 0, 0.1),
-      disabled: rgba(0, 0, 0, 0.26),
-      disabledBg: rgba(0, 0, 0, 0.15),
-      disabledOpacity: 0.38,
-    )
-  ),
-);
+// App Configuration
+
+$main-window-width: 500px;
+$header-height: 50px;
+$flip-duration: 600ms;
+
+$flip-states: ('absent', 'present', 'correct');
+
+// CSS Variables
+
+$border-radius: 4px;
 
 $typography: (
   fontSize: 16px,
@@ -109,9 +18,68 @@ $typography: (
     regular: 400,
     medium:  500,
     bold:    700,
-    heavy:   900,
+    heavy:   900
   )
 );
+
+// Palette
+
+$dark-colors: (
+  tile: (
+    absent:  #3a3a3c,
+    present: #ffa726,
+    correct: #66bb6a,
+    error:   #f443367f,
+  ),
+  text: (
+    primary:   #ffffff,
+    faded:     rgba(#ffffff, 0.75),
+    secondary: #82868c,
+  ),
+  background: (
+    default: #121213,
+    paper:   #818384,
+    paper2:  #3a3a3c,
+  ),
+  misc: (
+    divider: rgba(255, 255, 255, .12),
+  ),
+);
+
+$light-colors: (
+  tile: (
+    absent:  #dfe1e6,
+    present: #ffa726,
+    correct: #66bb6a,
+    error:   #f443367f,
+  ),
+  text: (
+    primary:   #181818,
+    faded:     rgba(#181818, 0.75),
+    secondary: #82868c,
+  ),
+  background: (
+    default: #f5f4f3,
+    paper:   #eff0f2,
+    paper2:  #dfe1e6,
+  ),
+  misc: (
+    divider: rgba(255, 255, 255, .12),
+  ),
+);
+
+// Fn to retrieve CSS variables
+// Ref: https://codepen.io/jakealbaugh/post/css4-variables-and-sass
+
+@function palette($color-name, $color-variant: null) {
+  @if ($color-variant != null) {
+    @return var(--#{$color-name}-#{$color-variant});
+  } @else {
+    @return var(--#{$color-name});
+  }
+};
+
+// Media queries
 
 $breakpoints: (
   xs: 0px,
@@ -121,33 +89,25 @@ $breakpoints: (
   xl: 1536px
 );
 
-$border-radius: 4px;
-
-$main-window-width: 500px;
-$header-height: 50px;
-$flip-duration: 300ms;
-
-// Media-queries
-
 @mixin bp-down($bp) {
   @media all and (max-width: map-get($breakpoints, $bp)) {
     @content
-  }
+  };
 };
 
 @mixin bp-up($bp) {
   @media all and (min-width: map-get($breakpoints, $bp)) {
     @content
-  }
+  };
 };
 
 @mixin bp-in($lower-bp, $upper-bp) {
   @media all and (min-width: map-get($breakpoints, $lower-bp)) and (max-width: map-get($breakpoints, $upper-bp)) {
     @content
-  }
+  };
 };
 
-// Functions
+// Spacing
 
 @function spacing($top, $right: null, $bottom: null, $left: null) {
   $step: 4px;
@@ -156,23 +116,4 @@ $flip-duration: 300ms;
   @if $bottom == null { $bottom: $top   };
   @if $right  == null { $right:  $top   };
   @return $top * $step $right * $step $bottom * $step $left * $step;
-}
-
-@mixin themed() {
-  @each $theme, $map in $palette {
-    :global(.theme--#{$theme}) & {
-      $theme-map: () !global;
-      @each $key, $submap in $map {
-        @each $prop, $value in $submap {
-          $theme-map: map-merge($theme-map, ('#{$key}.#{$prop}': $value)) !global;
-        }
-      }
-      @content;
-      $theme-map: null !global;
-    }
-  }
-}
-
-@function palette($key) {
-  @return map-get($theme-map, $key);
-}
+};

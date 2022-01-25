@@ -1,13 +1,13 @@
 @use 'sass:math'
 @import '../theme'
+@import '../animations'
 
 .title
   text-align: center
   padding: spacing(6, 4)
   font-size: 1.3rem
   font-weight: map-get($typography, fontWeight, bold)
-  @include themed()
-    border-bottom: 1px solid palette('misc.divider')
+  border-bottom: 1px solid palette(misc, divider)
 
 .options
   display: grid
@@ -28,10 +28,8 @@
 
   .optionDesc
     font-size: 0.8rem
-    @include themed()
-      color: palette('text.secondary')
+    color: palette(text, secondary)
   
-
 .tile
   aspect-ratio: 1
   width: 50px
@@ -42,29 +40,14 @@
   font-size: 1.5rem
   font-weight: map-get($typography, 'fontWeight', bold)
   cursor: pointer
-  @include themed()
-    color: palette('text.primary')
+  color: palette(text, primary)
 
   &.enabled
-    animation: flip-in $flip-duration ease-in-out forwards
-    @include themed()
-      border: 2px solid palette('success.main')
-      background-color: palette('success.main')
+    animation: flip-enabled $flip-duration ease-in-out forwards
 
   &.disabled
-    animation: flip-out $flip-duration ease-in-out forwards
-    @include themed()
-      border: 2px solid palette('background.paper2')
+    animation: flip-disabled $flip-duration ease-in-out forwards
+    
 
-@keyframes flip-in
-  50% 
-    transform: rotateX(90deg)
-  100% 
-    transform: none
 
-@keyframes flip-out
-  50% 
-    transform: rotateX(90deg)
-  100% 
-    transform: none
   

@@ -23,26 +23,16 @@
     cursor: pointer
     transition: background-color 100ms ease-in-out
     transition-delay: $flip-duration * 6.5
-    @include themed()
-      background: palette('background.paper')
-      color: palette('text.primary')
+    background: palette(background, paper)
+    color: palette(text, primary)
 
     &.bsButton, &.subButton
       grid-column: span 4
-      @include themed()
-        background: palette('background.paper2')
+      background: palette(background, paper2)
 
     &.emptyButton
       grid-column: span 12
 
-    &.absent
-      @include themed()
-        background-color: palette('background.paper2')
-
-    &.present
-      @include themed()
-        background-color: palette('warning.main')
-
-    &.correct
-      @include themed()
-        background-color: palette('success.main')
+    @each $state in $flip-states
+      &.#{$state}
+        background-color: palette(tile, #{$state})

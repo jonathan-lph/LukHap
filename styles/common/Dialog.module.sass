@@ -1,4 +1,5 @@
 @import '../theme'
+@import '../animations'
 
 .backdrop
   position: fixed
@@ -24,31 +25,17 @@
   max-height: 100vh
   max-height: var(--app-height, 100vh)
   min-height: 50px
-  animation: slide-up 500ms ease-in-out
-
-  @include themed()
-    background-color: palette('background.default')
-    color: palette('text.primary')
+  animation: slide-up 500ms ease-in-out forwards
+  background-color: palette(background, default)
+  color: palette(text, primary)
 
 .close
   position: absolute
   top: spacing(4)
   right: spacing(4)
   cursor: pointer
-  @include themed()
-    color: palette('text.secondary')
+  color: palette(text, secondary)
 
   &:hover
-    @include themed()
-      color: palette('text.primary')
-
-@keyframes slide-up
-  0%
-    opacity: 0
-    transfrom: translateY(100px)
-  75%
-    opacity: 1
-    transform: translateY(-5px)
-  100%
-    transform: none
+    color: palette(text, primary)
     
