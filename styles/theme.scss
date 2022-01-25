@@ -1,10 +1,16 @@
+@use 'sass:math';
+
 // App Configuration
 
 $main-window-width: 500px;
 $header-height: 50px;
-$flip-duration: 600ms;
+
+// Animation Configuration
 
 $flip-states: ('absent', 'present', 'correct');
+$flip-duration: 250ms;
+$flip-duration-halved: math.div($flip-duration, 2);
+$slide-in-duration: 200ms;
 
 // CSS Variables
 
@@ -60,8 +66,8 @@ $light-colors: (
   ),
   background: (
     default: #f5f4f3,
-    paper:   #eff0f2,
-    paper2:  #dfe1e6,
+    paper:   #787c7e,
+    paper2:  #d3d6da,
   ),
   misc: (
     divider: rgba(255, 255, 255, .12),

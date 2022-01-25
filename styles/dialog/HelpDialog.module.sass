@@ -35,7 +35,8 @@
 
       @each $state in $flip-states
         &.#{$state}
-          animation: flip-#{$state} $flip-duration ease-in-out forwards
+          animation: #{$state} $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
+          animation-delay: 500ms
 
   .description
     text-align: center

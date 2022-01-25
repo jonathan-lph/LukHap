@@ -1,4 +1,3 @@
-@use 'sass:math'
 @import '../theme'
 @import '../animations'
 
@@ -43,11 +42,7 @@
   color: palette(text, primary)
 
   &.enabled
-    animation: flip-enabled $flip-duration ease-in-out forwards
+    animation: correct $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
 
   &.disabled
-    animation: flip-disabled $flip-duration ease-in-out forwards
-    
-
-
-  
+    animation: correct-rev $flip-duration-halved steps(1) forwards, flip-dup $flip-duration ease-in-out forwards

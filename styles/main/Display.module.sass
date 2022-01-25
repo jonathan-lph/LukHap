@@ -1,4 +1,3 @@
-@use 'sass:math'
 @import '../theme'
 @import '../animations'
 
@@ -25,28 +24,22 @@
       text-transform: uppercase
       font-size: 1.5rem
       font-weight: map-get($typography, 'fontWeight', bold)
-      background-color: #7f7f7f00 // TRANS 1
       border: 2px solid palette(background, paper2)
       color: palette(text, primary)
       transition: background-color 200ms ease-in-out
 
-      &.absent, &.present, &.correct
-        animation: flip $flip-duration ease-in-out forwards
-        transition: background-color 0ms, border 0ms
+      @each $state in $flip-states
+        &.#{$state}
+          animation: #{$state} $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
 
       @for $i from 1 through 6
         &.absent:nth-child(#{$i}), 
         &.present:nth-child(#{$i}), 
         &.correct:nth-child(#{$i})
-          animation-delay: $flip-duration * $i
-
-      @each $state in $flip-states
-        &.#{$state}
-          animation: flip-#{$state} $flip-duration ease-in-out forwards
+          animation-delay: $flip-duration * ($i - 1)
 
       &.error
         background-color: palette(tile, error) // TRANS .5
 
       &.entered
         animation: tile-fill 100ms ease-in-out forwards
-        border: 2px solid palette(background, paper)

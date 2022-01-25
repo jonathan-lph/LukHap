@@ -1,47 +1,53 @@
+// Tile Color
+
 @each $state in $flip-states
-  @keyframes flip-#{$state}
-    50%
-      transform: rotateX(90deg)
+  @keyframes #{$state}
+    from
+      border: 2px solid palette(background, paper2)
+      background-color: none
+    to
       border: 2px solid palette(tile, #{$state})
       background-color: palette(tile, #{$state})
-    100%
-      transform: none
-      border: 2px solid palette(tile, #{$state})
-      background-color: palette(tile, #{$state})
+
+@keyframes correct-rev
+  from
+    border: 2px solid palette(tile, correct)
+    background-color: palette(tile, correct)
+  to
+    border: 2px solid palette(background, paper2)
+    background-color: none
+  
+// Flips
+
+@keyframes flip
+  50%
+    transform: rotateX(90deg)
+  100%
+    transform: none
+
+@keyframes flip-dup
+  50%
+    transform: rotateX(90deg)
+  100%
+    transform: none
+
+// Tile Enter
 
 @keyframes tile-fill
   50%
     transform: scale(1.1)
   100%
     transform: none
+    border: 2px solid palette(background, paper)
 
-@keyframes flip-enabled
-  0%
-    transform: none
-    border: 2px solid palette(background, paper2)
-    background-color: #7f7f7f00 // TRANS 1
-  50% 
-    transform: rotateX(90deg)
-    border: 2px solid palette(tile, correct)
-    background-color: palette(tile, correct)
-  100% 
-    transform: none
-    border: 2px solid palette(tile, correct)
-    background-color: palette(tile, correct)
+// Keyboard Change
 
-@keyframes flip-disabled
-  0%
-    transform: none
-    border: 2px solid palette(tile, correct)
-    background-color: palette(tile, correct)
-  50% 
-    transform: rotateX(90deg)
-    border: 2px solid palette(tile, correct)
-    background-color: palette(tile, correct)
-  100% 
-    transform: none
-    border: 2px solid palette(background, paper2)
-    background-color: #7f7f7f00 // TRANS 1
+@each $state in $flip-states
+  @keyframes keyboard-#{$state}
+    from
+      background-color: none
+    to
+      background-color: palette(tile, #{$state})
 
 @keyframes slide-up
   0%

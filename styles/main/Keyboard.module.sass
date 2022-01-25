@@ -1,4 +1,5 @@
 @import '../theme'
+@import '../animations'
 
 .root
   width: 100%
@@ -21,8 +22,6 @@
     text-transform: uppercase
     font-weight: map-get($typography, 'fontWeight', 'bold')
     cursor: pointer
-    transition: background-color 100ms ease-in-out
-    transition-delay: $flip-duration * 6.5
     background: palette(background, paper)
     color: palette(text, primary)
 
@@ -35,4 +34,5 @@
 
     @each $state in $flip-states
       &.#{$state}
-        background-color: palette(tile, #{$state})
+        animation: keyboard-#{$state} $flip-duration-halved steps(1) forwards
+        animation-delay: $flip-duration * 6.5
