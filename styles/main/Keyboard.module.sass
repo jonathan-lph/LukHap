@@ -22,12 +22,12 @@
     text-transform: uppercase
     font-weight: map-get($typography, 'fontWeight', 'bold')
     cursor: pointer
-    background: palette(background, paper)
+    background: palette(tile, default)
     color: palette(text, primary)
 
     &.bsButton, &.subButton
       grid-column: span 4
-      background: palette(background, paper2)
+      background: palette(tile, absent)
 
     &.emptyButton
       grid-column: span 12
