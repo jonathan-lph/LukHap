@@ -1,44 +1,33 @@
 @import '../theme'
 @import '../animations'
 
-.root
+.info p
+  margin-bottom: spacing(4)
 
-  .title
-    text-align: center
-    padding: spacing(6, 4)
-    font-size: 1.3rem
-    font-weight: map-get($typography, fontWeight, bold)
+.tiles
+  display: flex
+  gap: spacing(1)
+  justify-content: center 
 
-  p
-    padding: spacing(2, 4)
-
-  .examples
-    padding: spacing(4)
-
-  .tiles
+  .tile
+    width: 40px
+    aspect-ratio: 1
     display: flex
-    gap: spacing(1)
-    justify-content: center 
+    justify-content: center
+    align-items: center
+    text-transform: uppercase
+    font-size: 1.25rem
+    font-weight: map-get($typography, 'fontWeight', bold)
+    background-color: #7f7f7f00 // TRANS 1
+    border: 2px solid palette(tile, border)
+    color: palette(text, primary)
 
-    .tile
-      width: 40px
-      aspect-ratio: 1
-      display: flex
-      justify-content: center
-      align-items: center
-      text-transform: uppercase
-      font-size: 1.25rem
-      font-weight: map-get($typography, 'fontWeight', bold)
-      background-color: #7f7f7f00 // TRANS 1
-      border: 2px solid palette(tile, border)
-      color: palette(text, primary)
+    @each $state in $flip-states
+      &.#{$state}
+        animation: #{$state} $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
+        animation-delay: 500ms
 
-      @each $state in $flip-states
-        &.#{$state}
-          animation: #{$state} $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
-          animation-delay: 500ms
-
-  .description
-    text-align: center
-    margin: spacing(2, 0, 3)
+.description
+  text-align: center
+  margin: spacing(2, 0, 3)
 

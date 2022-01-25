@@ -42,7 +42,6 @@ $dark-colors: (
   ),
   text: (
     primary:   #ffffff,
-    faded:     rgba(#ffffff, 0.75),
     secondary: #82868c,
   ),
   misc: (
@@ -63,12 +62,11 @@ $light-colors: (
   ),
   text: (
     primary:   #181818,
-    faded:     rgba(#181818, 0.75),
     secondary: #82868c,
   ),
   misc: (
     background: #f5f4f3,
-    divider: rgba(255, 255, 255, .12),
+    divider: rgba(0, 0, 0, .12),
   ),
 );
 

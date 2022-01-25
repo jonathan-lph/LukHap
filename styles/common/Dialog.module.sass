@@ -17,7 +17,7 @@
   height: 100%
   
 .root 
-  width: clamp(300px, 450px, 95%)
+  width: clamp(300px, 400px, 95%)
   border-radius: $border-radius
   border: 0
   padding: 0
@@ -28,6 +28,17 @@
   animation: slide-up $slide-in-duration ease-in-out forwards
   background-color: palette(misc, background)
   color: palette(text, primary)
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+
+.title
+  text-align: center
+  padding: spacing(4)
+  font-size: 1.35rem
+  font-weight: map-get($typography, fontWeight, heavy)
+  border-bottom: 1px solid palette(misc, divider)
+
+.content
+  padding: spacing(4)
 
 .close
   position: absolute

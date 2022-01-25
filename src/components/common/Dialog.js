@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Close } from '@components/icons'
 import clsx from 'clsx'
 
-export default function Dialog({ open, children, handleClose, className }) {
+export default function Dialog({ open, title, children, handleClose, className }) {
 
   if (!open) return null
   return createPortal(
@@ -15,7 +15,12 @@ export default function Dialog({ open, children, handleClose, className }) {
           onClick={e => e.stopPropagation()}
         >
           <Close className={styles.close} onClick={handleClose}/>
-          {children}
+          <div className={styles.title}>
+            {title}
+          </div>
+          <div className={styles.content}>
+            {children}
+          </div>
         </dialog>
       </div>
     </div>

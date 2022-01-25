@@ -14,7 +14,7 @@ const OptionTile = ({ label, title, desc, value, onClick }) => {
       })} onClick={onClick}>
         {label}
       </div>
-      <div className={styles.optionInfo}>
+      <div className={styles.optionInfo} onClick={onClick}>
         <div className={styles.optionTitle}>
           {title}
         </div>
@@ -30,10 +30,10 @@ export default function SettingsPanel({ hardMode, handleToggleHardMode, ...props
   const { dark, toggleDarkMode } = useTheme()
 
   return (
-    <Dialog {...props}>
-      <h1 className={styles.title}>
-        遊戲設定
-      </h1>
+    <Dialog 
+      {...props}
+      title="遊戲設定"
+    >
       <div className={styles.options}>
         <OptionTile
           label="難"

@@ -36,16 +36,19 @@ const Example = ({ list, word, type }) => {
 
 export default function HelpDialog(props) {
   return (
-    <Dialog className={styles.root} {...props}>
-      <h1 className={styles.title}>
-        遊戲玩法
-      </h1>
-      <p> 
-        六次機會裡面，要估中一個詞兩個字嘅粵拼。每次估都要入曬六個音，包括聲母、韻腹、韻尾。如果冇其中一部分，就入「-」。
-      </p>
-      <p>
-        入完就撳「輸入」啦！睇顏色就知自己中咗幾多個㗎啦。
-      </p>
+    <Dialog 
+      className={styles.root} 
+      {...props} 
+      title="遊戲玩法"
+    >
+      <div className={styles.info}>
+        <p> 
+          六次機會裡面，要估中一個詞兩個字嘅粵拼。每次估都要入曬六個音，包括聲母、韻腹、韻尾。如果冇其中一部分，就入「-」。
+        </p>
+        <p>
+          入完就撳「輸入」啦！睇顏色就知中咗幾多個㗎啦。
+        </p>
+      </div>
       <div className={styles.examples}>
         <Example 
           list={["f", "a", "i", "j", "i", "m"]}
