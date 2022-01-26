@@ -8,7 +8,7 @@ const data = [{
   label: '已遊玩',
   key: 'gamesPlayed' 
 }, {
-  label: '勝率',
+  label: '勝率 %',
   key: 'winPercentage'
 }, {
   label: '連勝',
@@ -20,15 +20,31 @@ const data = [{
 
 const padNum = num => Math.floor(num).toString().padStart(2, 0)
 
-export default function StatisticsDialog(props) {
+export default function StatisticsDialog({ evaluations, ending, ...props }) {
   const [stat, setStat] = useState(null)
   const diffSec = useRef()
   const countdown = useRef()
 
+  const handleCopyResult = () => {
+    const str = '詞道'
+    if (ending === 'fail') str += ' -/6\n'
+    else str += `${ending}/6\n`
+    evaluations.forEach(arr => {
+      if (arr === null) return
+      arr.forEach((evaluation, idx) => {
+        str += evaluation === 'absent' ? '⬛'
+          : evaluation === 'present' ? '🟨'
+          : evaluation === 'correct' ? '🟩' : ''
+        if (idx === arr.length-1) str += '\n'
+      })
+    })
+    navigator.clipboard.writeText(str)
+  }
+
   useEffect(() => {
     const local = localStorage.getItem('statistics')
     if (local) setStat(JSON.parse(local))
-  }, [])
+  }, [props.open])
 
   // Set countdown timer
   useEffect(() => {
@@ -88,18 +104,20 @@ export default function StatisticsDialog(props) {
           未有其他數據
         </div>
       }
-      <div className={styles.footer}>
-        <dl className={styles.countdown}>
-          <time ref={countdown}>00:00</time>
-          <div>距離下個詞語</div>
-        </dl>
-        <div className={styles.shareDiv}>
-          <button className={styles.share}>
-            <Trophy/>
-            <span>分享本日成績</span>
-          </button>
+      {ending &&
+        <div className={styles.footer}>
+          <dl className={styles.countdown}>
+            <time ref={countdown}>00:00:00</time>
+            <div>距離下個詞語</div>
+          </dl>
+          <div className={styles.shareDiv}>
+            <button className={styles.share} onClick={handleCopyResult}>
+              <Trophy/>
+              <span>分享本日成績</span>
+            </button>
+          </div>
         </div>
-      </div>
+      }
     </Dialog>
   )
 }

@@ -5,7 +5,7 @@ import styles from '@styles/main/main.module.sass'
 import { Keyboard, Display, Snackbar, Header, Statistics } from '@components/main'
 import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
-import StatisticsDialog from '@src/components/dialog/StatisticsDialog'
+import { StatisticsDialog } from '@src/components/dialog'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
 
