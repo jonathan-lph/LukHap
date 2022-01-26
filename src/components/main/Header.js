@@ -1,13 +1,14 @@
 import styles from '@styles/main/Header.module.sass'
 import clsx from 'clsx'
-import { Settings, HelpOutline, Statistics, Cafe } from '@components/icons'
+import { Settings, HelpOutline, Statistics, Info } from '@components/icons'
 import { Fragment, useState } from 'react'
-import { HelpDialog } from '@components/dialog'
+import { HelpDialog, InfoDialog } from '@components/dialog'
 
 export default function Header({ handleToggleDialog }) {
 
   const [open, setOpen] = useState({
     help: false,
+    info: false
   })
 
   const handleOpen = key => e => {
@@ -26,8 +27,9 @@ export default function Header({ handleToggleDialog }) {
             className={styles.button}
             onClick={handleOpen('help')}
           />
-          <Cafe 
+          <Info 
             className={styles.button}
+            onClick={handleOpen('info')}
           />
         </div>
         <div className={styles.title}>
@@ -52,7 +54,11 @@ export default function Header({ handleToggleDialog }) {
         open={open.help}
         handleClose={handleClose('help')}
       />
-    
+
+      <InfoDialog
+        open={open.info}
+        handleClose={handleClose('info')}
+      />
 
     </Fragment>
   )
