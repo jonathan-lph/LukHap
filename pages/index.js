@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
@@ -9,9 +9,7 @@ import { StatisticsDialog } from '@src/components/dialog'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
 
-const copyArray = arr => {
-  return JSON.parse(JSON.stringify(arr))
-}
+const copyArray = arr => JSON.parse(JSON.stringify(arr))
 
 const searchWord = input => {
   const initials = [
@@ -73,6 +71,14 @@ const evaluate = (input, answer, guessed) => {
   return result
 }
 
+const isSameDate = (ms1, ms2) => {
+  const date1 = new Date(ms1)
+  const date2 = new Date(ms2)
+  return date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+}
+
 const answer = ['s','i','k','s','i','-']
 
 export default function Home() {
@@ -81,6 +87,7 @@ export default function Home() {
   const [inputs, setInputs] = useState(copyArray(INIT_ARR))
   const [evaluations, setEvaluations] = useState(Array.from({length: 6}).map(_ => null))
   const [guessed, setGuessed] = useState({})
+  const [hardMode, setHardMode] = useState(false)
   const [curr, setCurr] = useState({row: 0, entry: 0})
 
   // Flags
@@ -92,7 +99,7 @@ export default function Home() {
     statistics: false
   })
 
-  const [hardMode, setHardMode] = useState(false)
+  const usingLocal = useRef()
 
   const setStatus = (mode, content) => {
     if (mode === 'error') {
@@ -172,6 +179,21 @@ export default function Home() {
   })
   const handleToggleHardMode = e => setHardMode(!hardMode)
 
+  // Setup on enter
+  useEffect(() => {
+    const local = JSON.parse(localStorage.getItem('gameState'))
+    if (!local || !isSameDate(local.lastPlayedTs, Date.now())) return;
+    usingLocal.current = true
+    setInputs(local.gameBoard)
+    setEvaluations(local.evaluations)
+    setHardMode(local.hardMode)
+    setGuessed(local.guessed)
+    setCurr({row: local.rowIndex, entry: 0})
+    if (local.gameStatus === 'WON' || local.gameStatus === 'LOST') {
+      setEnding(local.rowIndex)
+    }
+  }, [])
+
   useEffect(() => {
     localStorage.setItem('gameState', JSON.stringify({
       gameBoard: inputs,
@@ -180,7 +202,9 @@ export default function Home() {
       guessed,
       rowIndex: curr.row,
       solution: answer,
-      gameStatus: ending === -1 ? 'LOST'
+      lastCompletedTS: ending ? Date.now() : null,
+      lastPlayedTs: Date.now(),
+      gameStatus: ending === 'fail' ? 'LOST'
         : ending ? 'WON'
         : 'IN_PROGRESS'
     }))
@@ -195,8 +219,31 @@ export default function Home() {
       return
     }
     if (curr.row === 6)
-      setEnding(-1)
+      setEnding('fail')
   }, [curr.row, evaluations])
+
+  useEffect(() => {
+    if (!ending) return
+    if (!usingLocal.current) {
+      const local = localStorage.getItem('statistics')
+      const stats = local ? JSON.parse(local) : {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        winPercentage: 0,
+        currentStreak: 0,
+        maxStreak: 0,
+        guesses: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, fail: 0}
+      }
+      stats.gamesPlayed++
+      stats.gamesWon = ending !== 'fail' ? stats.gamesWon + 1 : stats.gamesWon
+      stats.winPercentage = Math.floor(stats.gamesWon / stats.gamesPlayed * 100)
+      stats.currentStreak = ending !== 'fail' ? stats.currentStreak + 1 : 0
+      stats.maxStreak = stats.currentStreak >= stats.maxStreak ? stats.currentStreak : stats.maxStreak
+      stats.guesses[ending] = stats.guesses[ending] + 1
+      localStorage.setItem('statistics', JSON.stringify(stats))
+    }
+    setTimeout(handleToggleDialog('statistics'), 1800)
+  }, [ending])
 
   return (
     <Fragment>
@@ -221,7 +268,6 @@ export default function Home() {
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
           guessed={guessed}
-          ending={ending}
         />
         <Snackbar 
           success={success} 
@@ -236,6 +282,8 @@ export default function Home() {
         <StatisticsDialog
           open={dialog.statistics}
           handleClose={handleToggleDialog('statistics')}
+          evaluations={evaluations}
+          ending={ending}
         />
       </div>
     </Fragment>
