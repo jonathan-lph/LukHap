@@ -58,7 +58,13 @@ export default function Keyboard({ handleSelect, handleDelete, handleSubmit, gue
           Enter
         </button>
         <button 
-          className={clsx(styles.button, styles.emptyButton)}
+          className={clsx({
+            [styles.button]: true,
+            [styles.emptyButton]: true,
+            [styles.absent]: guessed['-'] === 'absent',
+            [styles.present]: guessed['-'] === 'present',
+            [styles.correct]: guessed['-'] === 'correct',
+          })}
           onClick={handleSelect('-')}
         >
           -
