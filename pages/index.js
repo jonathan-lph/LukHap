@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState, useRef } from 'react'
+import { Fragment, useEffect, useState, useRef, useMemo } from 'react'
 import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
-import { Keyboard, Display, Snackbar, Header, Statistics } from '@components/main'
+import { Keyboard, Display, Snackbar, Header } from '@components/main'
 import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
+import RAND_LIST from '@util/rand.json'
 import { StatisticsDialog } from '@src/components/dialog'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
@@ -79,7 +80,14 @@ const isSameDate = (ms1, ms2) => {
     date1.getDate() === date2.getDate()
 }
 
-const answer = ['s','i','k','s','i','-']
+const getAnswer = () => {
+  const todayMs = Date.now()
+  const pubMs = 1643126400000
+  let diffDays = Math.floor((todayMs - pubMs) / 1000 / 3600 / 24)
+  if (diffDays < 0) diffDays = 0
+  const [k1, k2, kIdx] = RAND_LIST.result[diffDays % RAND_LIST.result.length]
+  return WORD_LIST[k1][k2][kIdx % WORD_LIST[k1][k2].length]
+}
 
 export default function Home() {
 
@@ -100,6 +108,8 @@ export default function Home() {
   })
 
   const usingLocal = useRef()
+
+  const answer = useMemo(getAnswer, [])
 
   const setStatus = (mode, content) => {
     if (mode === 'error') {
@@ -182,7 +192,9 @@ export default function Home() {
   // Setup on enter
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem('gameState'))
-    if (!local || !isSameDate(local.lastPlayedTs, Date.now())) return;
+    // Use new word
+    if (!local || local.solution === answer) return;
+    // Use old word
     usingLocal.current = true
     setInputs(local.gameBoard)
     setEvaluations(local.evaluations)
