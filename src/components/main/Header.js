@@ -38,10 +38,10 @@ export default function Header({ handleToggleDialog }) {
           />
         </div>
         <div className={styles.title}>
-          Cidou 詞道
-          <span className={styles.subtitle}>
+          詞道
+          {/* <span className={styles.subtitle}>
             （遲到）
-          </span>
+          </span> */}
         </div>
         <div className={styles.buttons}>
           <Statistics 
