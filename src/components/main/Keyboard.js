@@ -5,11 +5,9 @@ const initials = [
   'b', 'p', 'm', 'f',
   'g', 'k', 'ng', 'h',
   'z', 'c', 
-  '',
   'd', 't', 'n', 'l',
   'gw', 'kw', 'w', 'j',
-  's', 
-  ''
+  '/', 's', '/' 
 ]
 
 const vowelsMain = [
@@ -35,7 +33,8 @@ export default function Keyboard({ handleSelect, handleDelete, handleSubmit, gue
         {initials
         .concat(vowelsMain)
         .map((input, idx) => {
-          if (input === '') return <div key={`spacer-${idx}`} className={styles.spacer}/>
+          if (input === '')  return <div key={`spacer-${idx}`}/>
+          if (input === '/') return <div key={`spacer-${idx}`} className={styles.spacer}/>
           return (
             <button 
               key={`${input}-${idx}`}
