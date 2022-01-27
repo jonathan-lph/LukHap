@@ -38,7 +38,7 @@ export default function Keyboard({ handleSelect, handleDelete, handleSubmit, gue
           if (input === '') return <div key={`spacer-${idx}`} className={styles.spacer}/>
           return (
             <button 
-              key={input}
+              key={`${input}-${idx}`}
               className={clsx({
                 [styles.button]: true,
                 [styles.absent]: guessed[input] === 'absent',

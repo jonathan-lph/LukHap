@@ -124,12 +124,12 @@ export default function InfoDialog(props) {
             </div>
             <div>
               {external && 
-                <a href={external} target="_blank">
+                <a href={external} target="_blank" rel="noreferrer">
                   <External className={styles.linkIcon}/>
                 </a>
               }
               {github && 
-                <a href={github} target="_blank">
+                <a href={github} target="_blank" rel="noreferrer">
                   <GitHub className={styles.linkIcon}/>
                 </a>
               }

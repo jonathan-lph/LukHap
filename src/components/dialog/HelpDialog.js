@@ -12,7 +12,7 @@ const Example = ({ list, word, type }) => {
     <figure className={styles.example}>
       <div className={styles.tiles}>
         {list.map((phonemes, idx) => 
-          <div className={clsx({
+          <div key={`${type}-${idx}`} className={clsx({
             [styles.tile]: true,
             [styles.absent]: type === 'absent' && idx === index,
             [styles.present]: type === 'present' && idx === index,
