@@ -43,7 +43,10 @@ export default function HelpDialog(props) {
     >
       <div className={styles.info}>
         <p> 
-          六次機會裡面，要估中一個詞兩個字嘅粵拼。每次估都要入曬六個音，包括聲母、韻腹、韻尾。如果冇其中一部分，就入「-」。
+          六次機會裡面，要估中
+          <strong className={styles.highlight}>一個詞兩個字嘅粵拼</strong>
+          。每次估都要入曬六個音，包括聲母、韻腹、韻尾。
+          <strong className={styles.highlight}>如果冇其中一部分，就入「-」。</strong>
         </p>
         <p>
           入完就撳「輸入」啦！睇顏色就知中咗幾多個㗎啦。
