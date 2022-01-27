@@ -1,7 +1,7 @@
 import styles from '@styles/main/Header.module.sass'
 import clsx from 'clsx'
 import { Settings, HelpOutline, Statistics, Info } from '@components/icons'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { HelpDialog, InfoDialog } from '@components/dialog'
 
 export default function Header({ handleToggleDialog }) {
@@ -18,6 +18,11 @@ export default function Header({ handleToggleDialog }) {
   const handleClose = key => e => {
     setOpen({...open, [key]: false})
   }
+
+  useEffect(() => {
+    const local = localStorage.getItem('gameState')
+    if (!local) handleOpen('help')()
+  }, [])
 
   return (
     <Fragment>
