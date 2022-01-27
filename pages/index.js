@@ -46,7 +46,7 @@ const evaluate = (input, answer, guessed) => {
     }
     if (answer[idx] === entry) {
       result.evaluation[idx] = 'correct'
-      result.guessed[entry] = result.guessed[entry] !== 'present' ? 'correct' : 'present'
+      result.guessed[entry] = 'correct'
       return
     }
     if (answer.includes(entry)) {
@@ -194,7 +194,7 @@ export default function Home() {
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem('gameState'))
     // Use new word
-    if (!local || local.solution === answer) return;
+    if (!local || local.solution[6] !== answer[6]) return;
     // Use old word
     usingLocal.current = true
     setInputs(local.gameBoard)
@@ -237,7 +237,8 @@ export default function Home() {
 
   useEffect(() => {
     if (!ending) return
-    if (!usingLocal.current) {
+    // Only modify statistics when the latest row is submitted (and not imported)
+    if (success) {
       const local = localStorage.getItem('statistics')
       const stats = local ? JSON.parse(local) : {
         gamesPlayed: 0,
@@ -247,7 +248,7 @@ export default function Home() {
         maxStreak: 0,
         guesses: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, fail: 0}
       }
-      stats.gamesPlayed++
+      stats.gamesPlayed += 1
       stats.gamesWon = ending !== 'fail' ? stats.gamesWon + 1 : stats.gamesWon
       stats.winPercentage = Math.floor(stats.gamesWon / stats.gamesPlayed * 100)
       stats.currentStreak = ending !== 'fail' ? stats.currentStreak + 1 : 0
