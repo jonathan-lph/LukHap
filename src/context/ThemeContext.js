@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import clsx from 'clsx'
-import { useEffect } from 'react/cjs/react.development'
+import { useEffect } from 'react'
 
 const ThemeContext = createContext()
 
