@@ -1,7 +1,7 @@
 {
   "document": {
-    "title": "JyutPing Wordle",
-    "desc": "Wordle for Jyut Ping.",
+    "title": "詞道｜粵拼版 Wordle",
+    "desc": "粵拼版 Wordle。",
     "version": "1.0.0"
   }
 }

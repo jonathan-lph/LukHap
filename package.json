@@ -1,5 +1,5 @@
 {
-  "name": "jyutping-wordle",
+  "name": "cidou",
   "private": true,
   "scripts": {
     "dev": "next dev",
