@@ -13,13 +13,13 @@
     "title":"詞道｜粵拼版 Wordle",
     "description": "六次機會要估中一個詞嘅粵拼。每日更新！",
     "url": "https://jonathan-lph.github.io/cidou/",
-    "image": "",
+    "image": "https://jonathan-lph.github.io/cidou/banner.jpg",
     "locale": "zh-HK"
   },
   "twitter": {
     "card": "summary_large_image",
     "title": "詞道｜粵拼版 Wordle",
     "description": "六次機會要估中一個詞嘅粵拼。每日更新！",
-    "image": ""
+    "image": "https://jonathan-lph.github.io/cidou/banner.jpg"
   }
 }
