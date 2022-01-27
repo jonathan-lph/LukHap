@@ -262,8 +262,14 @@ export default function Home() {
   return (
     <Fragment>
       <Head>
-        <title>{metadata.document.title}</title>
-        <meta name="description" content={metadata.document.desc} />
+        <meta charSet="UTF-8"/>
+        <title>{metadata.title}</title>
+        {Object.entries(metadata.document).map(([type, content]) => 
+          <meta key={type} name={type} content={content}/>)}
+        {Object.entries(metadata.og).map(([type, content]) => 
+          <meta key={`og:${type}`} property={`og:${type}`} content={content}/>)}
+        {Object.entries(metadata.twitter).map(([type, content]) => 
+          <meta key={`twitter:${type}`} name={`twitter:${type}`} content={content}/>)}
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
