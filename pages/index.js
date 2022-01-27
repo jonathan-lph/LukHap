@@ -5,8 +5,8 @@ import styles from '@styles/main/main.module.sass'
 import { Keyboard, Display, Snackbar, Header } from '@components/main'
 import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
-import RAND_LIST from '@util/rand.json'
 import { StatisticsDialog } from '@src/components/dialog'
+import seedrandom from 'seedrandom'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
 
@@ -81,12 +81,13 @@ const isSameDate = (ms1, ms2) => {
 }
 
 const getAnswer = () => {
-  const todayMs = Date.now()
-  const pubMs = 1643126400000
-  let diffDays = Math.floor((todayMs - pubMs) / 1000 / 3600 / 24)
-  if (diffDays < 0) diffDays = 0
-  const [k1, k2, kIdx] = RAND_LIST.result[diffDays % RAND_LIST.result.length]
-  return WORD_LIST[k1][k2][kIdx % WORD_LIST[k1][k2].length]
+  const today = new Date()
+  const rng = new seedrandom(today.toLocaleDateString('sv'))
+  const flatArr = Object
+    .values(WORD_LIST)
+    .map(sub => Object.values(sub))
+    .flat(2)
+  return flatArr[Math.floor(rng() * flatArr.length)]
 }
 
 export default function Home() {
