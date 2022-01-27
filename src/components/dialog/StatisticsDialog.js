@@ -24,11 +24,13 @@ export default function StatisticsDialog({ evaluations, ending, ...props }) {
   const [stat, setStat] = useState(null)
   const diffSec = useRef()
   const countdown = useRef()
+  const shareButton = useRef()
 
   const handleCopyResult = () => {
-    const str = '詞道'
+    const str = '詞道 '
+    str += Math.floor((Date.now() - 1643126401000) / 1000 / 3600 / 24)
     if (ending === 'fail') str += ' -/6\n'
-    else str += `${ending}/6\n`
+    else str += ` ${ending}/6\n`
     evaluations.forEach(arr => {
       if (arr === null) return
       arr.forEach((evaluation, idx) => {
@@ -39,6 +41,7 @@ export default function StatisticsDialog({ evaluations, ending, ...props }) {
       })
     })
     navigator.clipboard.writeText(str)
+    shareButton.current?.classList.add(styles.copied)
   }
 
   useEffect(() => {
@@ -111,9 +114,12 @@ export default function StatisticsDialog({ evaluations, ending, ...props }) {
             <div>距離下個詞語</div>
           </dl>
           <div className={styles.shareDiv}>
-            <button className={styles.share} onClick={handleCopyResult}>
+            <button 
+              className={styles.share} 
+              onClick={handleCopyResult} 
+              ref={shareButton}
+            >
               <Trophy/>
-              <span>分享本日成績</span>
             </button>
           </div>
         </div>

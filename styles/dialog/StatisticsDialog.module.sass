@@ -1,4 +1,5 @@
 @import '../theme'
+@import '../animations'
 
 .stats
   display: grid
@@ -83,14 +84,22 @@
       align-items: center
       padding: spacing(2, 3)
       border-radius: $border-radius
-      background: palette(tile, correct)
+      border: 2px solid palette(tile, correct)
+      background-color: unset
       font-size: 1rem
       font-weight: map-get($typography, fontWeight, bold)
       color: palette(text, primary)
       cursor: pointer
 
-      > span
+      &::after
+        content: "分享本日成績"
         padding-left: spacing(1)
+      
+      &.copied
+        animation: correct $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
+
+        &::after
+          animation: shared $flip-duration-halved steps(1) forwards
 
 @keyframes stat-bar
   from
