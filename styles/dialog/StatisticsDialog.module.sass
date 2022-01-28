@@ -75,6 +75,7 @@
 
   .shareDiv
     display: flex
+    flex-direction: column
     justify-content: center
     align-items: center
 
@@ -92,7 +93,7 @@
       cursor: pointer
 
       &::after
-        content: "分享本日成績"
+        content: "複製遊戲成績"
         padding-left: spacing(1)
       
       &.copied
@@ -100,6 +101,12 @@
 
         &::after
           animation: shared $flip-duration-halved steps(1) forwards
+
+    .answer
+      margin-top: spacing(1)
+      font-size: 0.8rem
+      color: palette(text, secondary)
+
 
 @keyframes stat-bar
   from

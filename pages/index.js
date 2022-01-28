@@ -194,9 +194,8 @@ export default function Home() {
     setHardMode(local.hardMode)
     setGuessed(local.guessed)
     setCurr({row: local.rowIndex, entry: 0})
-    if (local.gameStatus === 'WON' || local.gameStatus === 'LOST') {
-      setEnding(local.rowIndex)
-    }
+    if (local.gameStatus === 'WON') setEnding(local.rowIndex)
+    else if (local.gameStatus === 'LOST') setEnding('fail')
   }, [])
 
   useEffect(() => {
@@ -220,11 +219,11 @@ export default function Home() {
     if (curr.row === 0 || !evaluations[curr.row-1]) return
     const allCorrect = row => evaluations[row].every(elem => elem === 'correct')
     if (allCorrect(curr.row-1)) {
-      setEnding(curr.row)
+      setTimeout(() => setEnding(curr.row), 250 * 6)
       return
     }
     if (curr.row === 6)
-      setEnding('fail')
+      setTimeout(() => setEnding('fail'), 250 * 6)
   }, [curr.row, evaluations])
 
   useEffect(() => {
@@ -248,7 +247,7 @@ export default function Home() {
       stats.guesses[ending] = stats.guesses[ending] + 1
       localStorage.setItem('statistics', JSON.stringify(stats))
     }
-    setTimeout(handleToggleDialog('statistics'), 1800)
+    handleToggleDialog('statistics')()
   }, [ending])
 
   return (
@@ -296,6 +295,7 @@ export default function Home() {
           handleClose={handleToggleDialog('statistics')}
           evaluations={evaluations}
           ending={ending}
+          answer={answer}
         />
       </div>
     </Fragment>

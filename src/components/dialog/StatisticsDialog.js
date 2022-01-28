@@ -20,7 +20,7 @@ const data = [{
 
 const padNum = num => Math.floor(num).toString().padStart(2, 0)
 
-export default function StatisticsDialog({ evaluations, ending, ...props }) {
+export default function StatisticsDialog({ evaluations, ending, answer, ...props }) {
   const [stat, setStat] = useState(null)
   const diffSec = useRef()
   const countdown = useRef()
@@ -121,6 +121,12 @@ export default function StatisticsDialog({ evaluations, ending, ...props }) {
             >
               <Trophy/>
             </button>
+            <div className={styles.answer}>
+              答案：
+              {answer[0] + answer[1] + answer[2]}{' '}
+              {answer[3] + answer[4] + answer[5]}{' '}
+              {answer[6]}
+            </div>
           </div>
         </div>
       }
