@@ -7,6 +7,8 @@ import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
 import { StatisticsDialog } from '@src/components/dialog'
 import seedrandom from 'seedrandom'
+import { logEvent } from 'firebase/analytics'
+import { getAnalytics } from 'firebase/analytics'
 
 const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
 
@@ -117,6 +119,7 @@ export default function Home() {
 
   const handleSelect = input => e => {
     if (ending || curr.entry > 5) return
+    logEvent(getAnalytics(), 'keyboard_select')
     setInputs(prevInputs => {
       prevInputs[curr.row][curr.entry] = input
       return prevInputs
@@ -129,6 +132,7 @@ export default function Home() {
 
   const handleDelete = e => {
     if (ending || curr.entry === 0) return
+    logEvent(getAnalytics(), 'keyboard_delete')
     setInputs(prevInputs => {
       prevInputs[curr.row][curr.entry-1] = ''
       return prevInputs
@@ -141,8 +145,10 @@ export default function Home() {
 
   const handleSubmit = e => {
     if (ending) return
-    if (curr.entry !== 6) return setStatus('error', '唔夠字數喎')
-
+    if (curr.entry !== 6) {
+      logEvent(getAnalytics(), 'submit_err_insufficient_words')
+      return setStatus('error', '唔夠字數喎')
+    }
     if (hardMode && curr.row !== 0) {
       const currInput = inputs[curr.row]
       const prevInput = inputs[curr.row-1]
@@ -153,16 +159,24 @@ export default function Home() {
       }, [])
       for (let i = 0; i < 6; i++) {
         if (prevEval[i] === 'absent') continue;
-        if (prevEval[i] === 'correct' && prevInput[i] !== currInput[i]) 
+        if (prevEval[i] === 'correct' && prevInput[i] !== currInput[i]) { 
+          logEvent(getAnalytics(), 'submit_err_correct')
           return setStatus('error', `第 ${i+1} 個字要係 ${prevInput[i].toUpperCase()}`)
-        if (prevEval[i] === 'present' && !currInputWithoutCorrect.includes(prevInput[i])) 
+        }
+        if (prevEval[i] === 'present' && !currInputWithoutCorrect.includes(prevInput[i])) {
+          logEvent(getAnalytics(), 'submit_err_present')
           return setStatus('error', `一定要包括 ${prevInput[i].toUpperCase()}`)
+        }
       }
     }
 
     const result = searchWord(inputs[curr.row])
-    if (!result) return setStatus('error', '揾唔到依個詞')
+    if (!result) {
+      logEvent(getAnalytics(), 'submit_err_not_word')
+      return setStatus('error', '揾唔到依個詞')
+    }
 
+    logEvent(getAnalytics(), 'submit_success')
     const evaluation = evaluate(inputs[curr.row], answer, guessed)
     setEvaluations(prevEval => {
       prevEval[curr.row] = evaluation.evaluation
@@ -176,17 +190,27 @@ export default function Home() {
     })
   }
 
-  const handleToggleDialog = panel => e => setDialog({
-    ...dialog,
-    [panel]: !dialog[panel]
-  })
-  const handleToggleHardMode = e => setHardMode(!hardMode)
+  const handleToggleDialog = panel => e => {
+    logEvent(getAnalytics(), 'dialog_open', { panel })
+    setDialog({
+      ...dialog,
+      [panel]: !dialog[panel]
+    })
+  }
+  const handleToggleHardMode = e => {
+    logEvent(getAnalytics(), 'hard_mode', { open: hardMode })
+    setHardMode(!hardMode)
+  }
 
   // Setup on enter
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem('gameState'))
     // Use new word
-    if (!local || local.solution[6] !== answer[6]) return;
+    if (!local || local.solution[6] !== answer[6]) {
+      logEvent(getAnalytics(), 'game_start', { reenter: false })
+      return;
+    }
+    logEvent(getAnalytics(), 'game_start', { reenter: true })
     // Use old word
     usingLocal.current = true
     setInputs(local.gameBoard)
@@ -230,6 +254,7 @@ export default function Home() {
     if (!ending) return
     // Only modify statistics when the latest row is submitted (and not imported)
     if (success) {
+      logEvent(getAnalytics(), 'game_end', { row: ending })
       const local = localStorage.getItem('statistics')
       const stats = local ? JSON.parse(local) : {
         gamesPlayed: 0,
