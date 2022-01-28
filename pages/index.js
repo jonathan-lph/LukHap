@@ -33,43 +33,35 @@ const searchWord = input => {
   }
 }
 
-const evaluate = (input, answer, guessed) => {
-  let result = {
-    evaluation: [],
-    guessed: {...guessed},
-  }
+const evaluate = (input, answer, _guessed) => {
+  let evaluation = []
+  let guessed = {..._guessed}
   input.forEach((entry, idx) => {
     if (!answer.includes(entry)) {
-      result.evaluation[idx] = 'absent'
-      result.guessed[entry] = 'absent'
-      return
+      evaluation[idx] = 'absent'
+      return guessed[entry] = 'absent'
     }
     if (answer[idx] === entry) {
-      result.evaluation[idx] = 'correct'
-      result.guessed[entry] = 'correct'
-      return
+      evaluation[idx] = 'correct'
+      return guessed[entry] = 'correct'
     }
-    if (answer.includes(entry)) {
-      const occurance = answer.reduce((acc, val, i) => 
-        val === entry ? [...acc, i] : acc
-      , [])
-      const fulfilled = occurance.reduce((acc, val) =>
-        input[val] === entry ? acc + 1 : acc
-      , 0)
-      const flagged = result.evaluation.reduce((acc, val, i) => 
-        val === 'present' && input[i] === entry ? acc + 1 : acc
-      , 0)
-      if (occurance.length > fulfilled + flagged) {
-        result.evaluation[idx] = 'present'
-        result.guessed[entry] = 'present'
-        return
-      }
-      result.evaluation[idx] = 'absent'
-      result.guessed[entry] = 'absent'
-      return
+    // Present: Excluding corrects and flagged (as present) 
+    const occurance = answer.reduce((acc, val, i) => 
+      val === entry ? [...acc, i] : acc
+    , [])
+    const fulfilled = occurance.reduce((acc, val) =>
+      input[val] === entry ? acc + 1 : acc
+    , 0)
+    const flagged = evaluation.reduce((acc, val, i) => 
+      val === 'present' && input[i] === entry ? acc + 1 : acc
+    , 0)
+    if (occurance.length > fulfilled + flagged) {
+      evaluation[idx] = 'present'
+      return guessed[entry] = 'present'
     }
+    evaluation[idx] = 'absent'
   })
-  return result
+  return { evaluation, guessed }
 }
 
 const isSameDate = (ms1, ms2) => {
