@@ -92,15 +92,11 @@
       color: palette(text, primary)
       cursor: pointer
 
-      &::after
-        content: "複製遊戲成績"
+      span
         padding-left: spacing(1)
       
       &.copied
         animation: correct $flip-duration-halved steps(1) forwards, flip $flip-duration ease-in-out forwards
-
-        &::after
-          animation: shared $flip-duration-halved steps(1) forwards
 
     .answer
       margin-top: spacing(1)

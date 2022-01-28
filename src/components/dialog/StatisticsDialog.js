@@ -42,6 +42,10 @@ export default function StatisticsDialog({ evaluations, ending, answer, ...props
     })
     navigator.clipboard.writeText(str)
     shareButton.current?.classList.add(styles.copied)
+    setTimeout(() => { 
+      if (shareButton.current)
+        shareButton.current.childNodes[1].innerText = '　已複製！　'
+    }, 125)
   }
 
   useEffect(() => {
@@ -120,6 +124,7 @@ export default function StatisticsDialog({ evaluations, ending, answer, ...props
               ref={shareButton}
             >
               <Trophy/>
+              <span>複製遊戲成績</span>
             </button>
             <div className={styles.answer}>
               答案：
