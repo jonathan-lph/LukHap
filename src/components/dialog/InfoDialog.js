@@ -21,97 +21,91 @@ const links = [{
   external: 'https://chaaklau.github.io/zidou/',
 }]
 
-const initials = {
-  LSHK: [
-    ['b', 'p', 'm', 'f'],
-    ['d', 't', 'n', 'l'],
-    ['g', 'k', 'ng', 'h'],
-    ['gw', 'kw', 'w', 'j'], 
-    ['z', 'c', 's', '∅'],
-  ],
-  words: [
-    ['巴', '怕', '媽', '花'],
-    ['打', '他', '拿', '啦'],
-    ['家', '卡', '牙', '蝦'],
-    ['瓜', '跨', '娃', '也'],
-    ['渣', '叉', '沙', '啊'],
-  ]
-}
+const tables = [{
+  type: '聲母',
+  list: [{
+    LSHK: [
+      ['b', 'p', 'm', 'f'],
+      ['d', 't', 'n', 'l'],
+      ['g', 'k', 'ng', 'h'],
+      ['gw', 'kw', 'w', 'j'], 
+      ['z', 'c', 's', '∅'],
+    ],
+    words: [
+      ['巴', '怕', '媽', '花'],
+      ['打', '他', '拿', '啦'],
+      ['家', '卡', '牙', '蝦'],
+      ['瓜', '跨', '娃', '也'],
+      ['渣', '叉', '沙', '啊'],
+    ],
 
-const vowelsMain = {
-  LSHK: [
-    ['aa', 'a', 'e', 'i'],
-    ['o', 'oe', 'eo'],
-    ['u', 'yu', '∅'],
-  ],
-  words: [
-    ['沙', '新', '些', '詩'],
-    ['疏', '靴', '詢'],
-    ['夫', '書', '唔']
-  ]
-}
+  }]
+}, {
+  type: '韻腹、韻尾',
+  list: [{
+    LSHK: [
+      ['aa', 'a', 'e', 'i'],
+      ['o', 'oe', 'eo'],
+      ['u', 'yu', '∅'],
+    ],
+    words: [
+      ['沙', '新', '些', '詩'],
+      ['疏', '靴', '詢'],
+      ['夫', '書', '唔']
+    ]
+  }, {
+    LSHK: [
+      ['i', 'u'],
+      ['m', 'n', 'ng'],
+      ['p', 't', 'k']
+    ],
+    words: [
+      ['西', '收'],
+      ['心', '新', '生'],
+      ['濕', '失', '塞']
+    ],
+    prefix: '-'
+  }]
+}]
 
-const vowelsEnd = {
-  LSHK: [
-    ['i', 'u'],
-    ['m', 'n', 'ng'],
-    ['p', 't', 'k']
-  ],
-  words: [
-    ['西', '收'],
-    ['心', '新', '生'],
-    ['濕', '失', '塞']
-  ]
-}
-
-export default function InfoDialog(props) {
-
+export default function InfoDialog({ guessed, ...props }) {
   return (
     <Dialog
       className={styles.root} 
       {...props}
       title="資料"
     >
-      <div className={styles.title}>
-        聲母
-      </div>
-      <dl className={styles.table}>
-        {initials.words.map((arr, i) => 
-          <div key={`initials-${i}`} className={styles.row}>
-            {arr.map((example, j) => 
-              <Fragment key={j}>
-                <dt>{initials.LSHK[i][j]}</dt>
-                <dd>{example}</dd>
-              </Fragment>
-            )}
-          </div>
+      {tables.map(({type, list}) => 
+        <Fragment key={type}>
+        <div className={styles.title}>
+          {type}
+        </div>
+        <dl className={styles.table}>
+        {list.map(({LSHK, words, prefix}) => 
+          words.map((arr, i) => 
+            <div key={`wordPair-${i}`} className={styles.column}>
+            {arr.map((example, j) => {
+              const phonemes = LSHK[i][j]
+              const classes = guessed[phonemes !== '∅' ? phonemes : '-'] 
+              ? styles[guessed[phonemes !== '∅' ? phonemes : '-']] 
+              : ''
+              return (
+                <Fragment key={j}>
+                  <dt className={classes}>
+                    {prefix}{phonemes}
+                  </dt>
+                  <dd className={classes}>
+                    {example}
+                  </dd>
+                </Fragment>
+              )
+            })}
+            </div>
+          )
         )}
-      </dl>
-      <div className={styles.title}>
-        韻腹、韻尾
-      </div>
-      <dl className={styles.table}>
-        {vowelsMain.words.map((arr, i) => 
-          <div key={`initials-${i}`} className={styles.row}>
-            {arr.map((example, j) => 
-              <Fragment key={j}>
-                <dt>{vowelsMain.LSHK[i][j]}</dt>
-                <dd>{example}</dd>
-              </Fragment>
-            )}
-          </div>
-        )}
-        {vowelsEnd.words.map((arr, i) => 
-          <div key={`initials-${i}`} className={styles.row}>
-            {arr.map((example, j) => 
-              <Fragment key={j}>
-                <dt>-{vowelsEnd.LSHK[i][j]}</dt>
-                <dd>{example}</dd>
-              </Fragment>
-            )}
-          </div>
-        )}
-      </dl>
+        </dl>
+        </Fragment>
+      )}
       <div className={styles.title}>
         連結
       </div>

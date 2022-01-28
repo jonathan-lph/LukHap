@@ -267,6 +267,7 @@ export default function Home() {
       <div className={styles.root}>
         <Header
           handleToggleDialog={handleToggleDialog}
+          guessed={guessed}
         />
         <Display 
           inputs={inputs} 

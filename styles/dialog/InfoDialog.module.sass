@@ -10,22 +10,28 @@
   justify-content: space-between
   padding: spacing(4)
 
-  .row
+  .column
     display: grid
     grid-template-columns: repeat(2, max-content)
     align-content: space-between
     column-gap: spacing(1.5)
-
+  
     dd
       color: palette(text, secondary)
+
+      @each $state in $flip-states
+        &.#{$state}
+          color: palette(tile, #{$state})
       
     dt
       text-align: right
       text-transform: uppercase
       font-weight: map-get($typography, fontWeight, medium)
+
+      @each $state in $flip-states
+        &.#{$state}
+          color: palette(tile, #{$state})
       
-
-
 .links
   display: grid
   grid-template-columns: repeat(2, minmax(max-content, 1fr))

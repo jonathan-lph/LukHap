@@ -4,7 +4,7 @@ import { Settings, HelpOutline, Statistics, Info } from '@components/icons'
 import { Fragment, useEffect, useState } from 'react'
 import { HelpDialog, InfoDialog } from '@components/dialog'
 
-export default function Header({ handleToggleDialog }) {
+export default function Header({ handleToggleDialog, guessed }) {
 
   const [open, setOpen] = useState({
     help: false,
@@ -63,6 +63,7 @@ export default function Header({ handleToggleDialog }) {
       <InfoDialog
         open={open.info}
         handleClose={handleClose('info')}
+        guessed={guessed}
       />
 
     </Fragment>
