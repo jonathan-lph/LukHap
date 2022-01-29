@@ -19,6 +19,14 @@ const links = [{
   label: '遊戲啟發',
   name: 'ZiDou 字道',
   external: 'https://chaaklau.github.io/zidou/',
+}, {
+  label: '漢語多功能字庫',
+  name: '粵語音節表',
+  external: 'https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/syllables.php'
+}, {
+  label: 'Google Docs',
+  name: '私隱政策',
+  external: 'https://docs.google.com/document/d/1uxALGuP0aYQrw_S5tS5zCEju0p3-rN82SYZX9T8l664/edit?usp=sharing'
 }]
 
 const tables = [{
