@@ -15,7 +15,7 @@ const searchWord = input => {
     'g', 'k', 'ng', 'h',
     'd', 't', 'n', 'l',
     'gw', 'kw', 'w', 'j',
-    'z', 'c', 's' 
+    'z', 'c', 's', '-'
   ]
   if (!initials.includes(input[0]) || !initials.includes(input[3])) 
     return;
