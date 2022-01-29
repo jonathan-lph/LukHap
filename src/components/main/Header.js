@@ -2,26 +2,22 @@ import styles from '@styles/main/Header.module.sass'
 import clsx from 'clsx'
 import { Settings, HelpOutline, Statistics, Info } from '@components/icons'
 import { Fragment, useEffect, useState } from 'react'
-import { HelpDialog, InfoDialog } from '@components/dialog'
+import { HelpDialog, InfoDialog, SettingsDialog, StatisticsDialog } from '@components/dialog'
 
-export default function Header({ handleToggleDialog, guessed }) {
-
-  const [open, setOpen] = useState({
-    help: false,
-    info: false
-  })
-
-  const handleOpen = key => e => {
-    setOpen({...open, [key]: true})
-  }
-
-  const handleClose = key => e => {
-    setOpen({...open, [key]: false})
-  }
+export default function Header({ 
+  dialog,
+  handleToggleDialog, 
+  guessed,
+  ending,
+  answer,
+  evaluations,
+  hardMode,
+  handleToggleHardMode,
+}) {
 
   useEffect(() => {
     const local = localStorage.getItem('gameState')
-    if (!local) handleOpen('help')()
+    if (!local) handleToggleDialog('help')()
   }, [])
 
   return (
@@ -30,11 +26,11 @@ export default function Header({ handleToggleDialog, guessed }) {
         <div className={styles.buttons}>
           <HelpOutline 
             className={styles.button}
-            onClick={handleOpen('help')}
+            onClick={handleToggleDialog('help')}
           />
           <Info 
             className={styles.button}
-            onClick={handleOpen('info')}
+            onClick={handleToggleDialog('info')}
           />
         </div>
         <div className={styles.title}>
@@ -56,14 +52,29 @@ export default function Header({ handleToggleDialog, guessed }) {
       </header>
 
       <HelpDialog
-        open={open.help}
-        handleClose={handleClose('help')}
+        open={dialog.help}
+        handleClose={handleToggleDialog('help')}
       />
 
       <InfoDialog
-        open={open.info}
-        handleClose={handleClose('info')}
+        open={dialog.info}
+        handleClose={handleToggleDialog('info')}
         guessed={guessed}
+      />
+
+      <SettingsDialog
+        open={dialog.settings}
+        handleClose={handleToggleDialog('settings')}
+        hardMode={hardMode}
+        handleToggleHardMode={handleToggleHardMode}
+      />
+
+      <StatisticsDialog
+        open={dialog.statistics}
+        handleClose={handleToggleDialog('statistics')}
+        evaluations={evaluations}
+        ending={ending}
+        answer={answer}
       />
 
     </Fragment>

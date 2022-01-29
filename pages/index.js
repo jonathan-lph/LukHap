@@ -3,9 +3,7 @@ import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
 import { Keyboard, Display, Snackbar, Header } from '@components/main'
-import { SettingsDialog } from '@components/dialog'
 import WORD_LIST from '@util/words.json'
-import { StatisticsDialog } from '@src/components/dialog'
 import seedrandom from 'seedrandom'
 import { logEvent } from 'firebase/analytics'
 import { getAnalytics } from 'firebase/analytics'
@@ -98,6 +96,8 @@ export default function Home() {
   const [success, setSuccess] = useState(null)
   const [ending, setEnding] = useState(null)
   const [dialog, setDialog] = useState({
+    help: false,
+    info: false,
     settings: false,
     statistics: false
   })
@@ -291,8 +291,14 @@ export default function Home() {
 
       <div className={styles.root}>
         <Header
+          dialog={dialog}
           handleToggleDialog={handleToggleDialog}
           guessed={guessed}
+          ending={ending}
+          answer={answer}
+          evaluations={evaluations}
+          hardMode={hardMode}
+          handleToggleHardMode={handleToggleHardMode}
         />
         <Display 
           inputs={inputs} 
@@ -309,19 +315,6 @@ export default function Home() {
         <Snackbar 
           success={success} 
           error={error}
-        />
-        <SettingsDialog
-          open={dialog.settings}
-          handleClose={handleToggleDialog('settings')}
-          hardMode={hardMode}
-          handleToggleHardMode={handleToggleHardMode}
-        />
-        <StatisticsDialog
-          open={dialog.statistics}
-          handleClose={handleToggleDialog('statistics')}
-          evaluations={evaluations}
-          ending={ending}
-          answer={answer}
         />
       </div>
     </Fragment>
