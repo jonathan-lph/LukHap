@@ -34,7 +34,7 @@ export default function Header({
           />
         </div>
         <div className={styles.title}>
-          詞道
+          六合
           {/* <span className={styles.subtitle}>
             （遲到）
           </span> */}

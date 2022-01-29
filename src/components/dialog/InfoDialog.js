@@ -5,8 +5,8 @@ import { External, GitHub } from '@components/icons'
 
 const links = [{
   label: '遊戲原程式碼',
-  name: 'CiDou 詞道',
-  github: 'https://github.com/jonathan-lph/cidou'
+  name: 'LukHap 六合',
+  github: 'https://github.com/jonathan-lph/lukhap'
 }, {
   label: '詞源及粵拼',
   name: 'Rime 粵拼方案',

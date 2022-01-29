@@ -284,7 +284,7 @@ export default function Home() {
           <meta key={`og:${type}`} property={`og:${type}`} content={content}/>)}
         {Object.entries(metadata.twitter).map(([type, content]) => 
           <meta key={`twitter:${type}`} name={`twitter:${type}`} content={content}/>)}
-        <link rel="icon" href="https://jonathan-lph.github.io/cidou/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className={styles.root}>

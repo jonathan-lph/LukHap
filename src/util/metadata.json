@@ -1,25 +1,25 @@
 {
-  "title": "詞道｜粵拼版 Wordle",
+  "title": "六合｜粵拼版 Wordle",
   "version": "1.0.0",
   "document": {
     "description": "六次機會要估中一個詞嘅粵拼。每日更新！",
     "author": "jonathan-lph",
-    "keywords": "CiDou, 詞道, Wordle, ZiDou, Word Game, Jyut Ping, 粵拼",
+    "keywords": "LukHap, 六合, Wordle, ZiDou, Word Game, Jyut Ping, 粵拼",
     "theme-color": "#6aaa64",
     "viewport": "width=device-width, initial-scale=1.0, user-scalable=no"
   },
   "og": {
     "type": "website",
-    "title":"詞道｜粵拼版 Wordle",
+    "title":"六合｜粵拼版 Wordle",
     "description": "六次機會要估中一個詞嘅粵拼。每日更新！",
-    "url": "https://jonathan-lph.github.io/cidou/",
-    "image": "https://jonathan-lph.github.io/cidou/banner.jpg",
+    "url": "https://lukhap.jonathanl.dev",
+    "image": "/banner.jpg",
     "locale": "zh-HK"
   },
   "twitter": {
     "card": "summary_large_image",
-    "title": "詞道｜粵拼版 Wordle",
+    "title": "六合｜粵拼版 Wordle",
     "description": "六次機會要估中一個詞嘅粵拼。每日更新！",
-    "image": "https://jonathan-lph.github.io/cidou/banner.jpg"
+    "image": "/banner.jpg"
   }
 }

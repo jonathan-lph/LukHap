@@ -27,10 +27,10 @@ export default function StatisticsDialog({ evaluations, ending, answer, ...props
   const shareButton = useRef()
 
   const handleCopyResult = () => {
-    const str = '詞道 '
+    const str = '六合｜'
     str += Math.floor((Date.now() - 1643126401000) / 1000 / 3600 / 24)
-    if (ending === 'fail') str += ' -/6\n'
-    else str += ` ${ending}/6\n`
+    if (ending === 'fail') str += '｜-/6\n'
+    else str += `｜${ending}/6\n`
     evaluations.forEach(arr => {
       if (arr === null) return
       arr.forEach((evaluation, idx) => {
