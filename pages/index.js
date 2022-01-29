@@ -1,17 +1,13 @@
-import { Fragment, useEffect, useState, useRef, useMemo } from 'react'
 import Head from 'next/head'
-import metadata from '@util/metadata.json'
-import styles from '@styles/main/main.module.sass'
+import seedrandom from 'seedrandom'
+import { logEvent, getAnalytics } from 'firebase/analytics'
+import { Fragment, useEffect, useState, useRef, useMemo } from 'react'
+
 import { Keyboard, Display, Snackbar, Header } from '@components/main'
+import metadata from '@util/metadata.json'
 import DICTIONARY from '@util/dictionary.json'
 import ANSWERS from '@util/answers.json'
-import seedrandom from 'seedrandom'
-import { logEvent } from 'firebase/analytics'
-import { getAnalytics } from 'firebase/analytics'
-
-const INIT_ARR = Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => ''))
-
-const copyArray = arr => JSON.parse(JSON.stringify(arr))
+import styles from '@styles/main/main.module.sass'
 
 const searchWord = input => {
   const initials = [
@@ -65,14 +61,6 @@ const evaluate = (input, answer, _guessed) => {
   return { evaluation, guessed }
 }
 
-const isSameDate = (ms1, ms2) => {
-  const date1 = new Date(ms1)
-  const date2 = new Date(ms2)
-  return date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-}
-
 const getAnswer = (date, asString = false) => {
   const rng = new seedrandom(asString ? date : date.toLocaleDateString('sv'))
   return ANSWERS.result[Math.floor(rng() * ANSWERS.result.length)]
@@ -81,7 +69,7 @@ const getAnswer = (date, asString = false) => {
 export default function Home() {
 
   // Game States
-  const [inputs, setInputs] = useState(copyArray(INIT_ARR))
+  const [inputs, setInputs] = useState(Array.from({length: 6}).map(_ => Array.from({length: 6}).map(_ => '')))
   const [evaluations, setEvaluations] = useState(Array.from({length: 6}).map(_ => null))
   const [guessed, setGuessed] = useState({})
   const [hardMode, setHardMode] = useState(false)
@@ -97,8 +85,6 @@ export default function Home() {
     settings: false,
     statistics: false
   })
-
-  const usingLocal = useRef()
 
   const answer = useMemo(() => getAnswer(new Date()), [])
 
@@ -208,7 +194,6 @@ export default function Home() {
     }
     logEvent(getAnalytics(), 'game_start_reenter')
     // Use old word
-    usingLocal.current = true
     setInputs(local.gameBoard)
     setEvaluations(local.evaluations)
     setHardMode(local.hardMode)

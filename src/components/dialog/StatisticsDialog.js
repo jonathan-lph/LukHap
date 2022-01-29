@@ -1,8 +1,7 @@
+import { Fragment, useEffect, useState, useRef } from "react";
 import { Dialog } from "@components/common";
-import { useEffect, useState, useRef } from "react";
-import styles from '@styles/dialog/StatisticsDialog.module.sass'
-import { Fragment } from "react";
 import { Trophy } from "@components/icons";
+import styles from '@styles/dialog/StatisticsDialog.module.sass'
 
 const data = [{
   label: '已遊玩',

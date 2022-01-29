@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import '@styles/global.sass'
-import { ThemeProvider } from '@context/ThemeContext'
 import firebaseApp from '@firebaseApp'
 import { getAnalytics, logEvent } from 'firebase/analytics'
+import { ThemeProvider } from '@context/ThemeContext'
+import '@styles/global.sass'
 
 function MyApp({ Component, pageProps }) {
   

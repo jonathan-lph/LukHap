@@ -1,8 +1,7 @@
-import styles from '@styles/main/Header.module.sass'
-import clsx from 'clsx'
+import { Fragment, useEffect} from 'react'
 import { Settings, HelpOutline, Statistics, Info, Logo } from '@components/icons'
-import { Fragment, useEffect, useState } from 'react'
 import { HelpDialog, InfoDialog, SettingsDialog, StatisticsDialog } from '@components/dialog'
+import styles from '@styles/main/Header.module.sass'
 
 export default function Header({ 
   dialog,
@@ -22,6 +21,7 @@ export default function Header({
 
   return (
     <Fragment>
+      
       <header className={styles.root}>
         <div className={styles.buttons}>
           <HelpOutline 

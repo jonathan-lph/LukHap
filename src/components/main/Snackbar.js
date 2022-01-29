@@ -1,5 +1,5 @@
-import styles from '@styles/main/Snackbar.module.sass'
 import clsx from 'clsx'
+import styles from '@styles/main/Snackbar.module.sass'
 
 export default function Snackbar({error, success}) {
   return (

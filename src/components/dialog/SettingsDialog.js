@@ -1,8 +1,8 @@
-import { Dialog } from "@components/common"
-import { useTheme } from "@src/context/ThemeContext"
-import styles from "@styles/dialog/SettingsDialog.module.sass"
 import clsx from "clsx"
 import { Fragment } from "react"
+import { useTheme } from "@context/ThemeContext"
+import { Dialog } from "@components/common"
+import styles from "@styles/dialog/SettingsDialog.module.sass"
 
 const OptionTile = ({ label, title, desc, value, onClick }) => {
   return (

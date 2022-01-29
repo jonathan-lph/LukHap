@@ -1,7 +1,7 @@
-import { Dialog } from '@components/common'
-import styles from '@styles/dialog/InfoDialog.module.sass'
 import { Fragment } from 'react'
+import { Dialog } from '@components/common'
 import { External, GitHub } from '@components/icons'
+import styles from '@styles/dialog/InfoDialog.module.sass'
 
 const links = [{
   label: '遊戲原程式碼',

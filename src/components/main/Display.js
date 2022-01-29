@@ -1,5 +1,5 @@
-import styles from '@styles/main/Display.module.sass'
 import clsx from 'clsx'
+import styles from '@styles/main/Display.module.sass'
 
 export default function Display({ inputs, evaluations, currRow, error }) {
   return (

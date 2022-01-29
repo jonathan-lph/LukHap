@@ -1,5 +1,4 @@
-import { createContext, useContext, useState } from 'react'
-import { useEffect } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const ThemeContext = createContext()
 
@@ -30,7 +29,8 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={{
-      dark, toggleDarkMode, 
+      dark, 
+      toggleDarkMode,
     }}>
       <div id="themed-app" data-theme={dark ? 'dark' : 'light'}>
         {children}

@@ -1,7 +1,7 @@
-import styles from '@styles/common/Dialog.module.sass'
+import clsx from 'clsx'
 import { createPortal } from 'react-dom'
 import { Close } from '@components/icons'
-import clsx from 'clsx'
+import styles from '@styles/common/Dialog.module.sass'
 
 export default function Dialog({ open, title, children, handleClose, className }) {
 

@@ -1,5 +1,5 @@
-import styles from '@styles/common/Icons.module.sass'
 import clsx from 'clsx'
+import styles from '@styles/common/Icons.module.sass'
 
 export default function GitHub({className, ...props}) {
   return (

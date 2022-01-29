@@ -1,5 +1,5 @@
-import styles from '@styles/main/Keyboard.module.sass'
 import clsx from 'clsx'
+import styles from '@styles/main/Keyboard.module.sass'
 
 const initials = [
   'b', 'p', 'm', 'f',

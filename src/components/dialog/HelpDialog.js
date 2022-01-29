@@ -1,6 +1,6 @@
+import clsx from 'clsx'
 import { Dialog } from '@components/common'
 import styles from '@styles/dialog/HelpDialog.module.sass'
-import clsx from 'clsx'
 
 const Example = ({ list, word, type }) => {
 
@@ -31,6 +31,7 @@ const Example = ({ list, word, type }) => {
       </figcaption>
     </figure>
   )
+
 }
 
 
