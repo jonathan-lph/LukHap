@@ -3,7 +3,8 @@ import Head from 'next/head'
 import metadata from '@util/metadata.json'
 import styles from '@styles/main/main.module.sass'
 import { Keyboard, Display, Snackbar, Header } from '@components/main'
-import WORD_LIST from '@util/words.json'
+import DICTIONARY from '@util/dictionary.json'
+import ANSWERS from '@util/answers.json'
 import seedrandom from 'seedrandom'
 import { logEvent } from 'firebase/analytics'
 import { getAnalytics } from 'firebase/analytics'
@@ -22,7 +23,7 @@ const searchWord = input => {
   ]
   if (!initials.includes(input[0]) || !initials.includes(input[3])) 
     return;
-  let arr = WORD_LIST[input[0]][input[3]]
+  let arr = DICTIONARY[input[0]][input[3]]
   outerloop: for (let i = 0; i < arr.length; i++) {
     let testWord = arr[i]
     for (let j = 1; j < 6; j++) {
@@ -74,11 +75,7 @@ const isSameDate = (ms1, ms2) => {
 
 const getAnswer = (date, asString = false) => {
   const rng = new seedrandom(asString ? date : date.toLocaleDateString('sv'))
-  const flatArr = Object
-    .values(WORD_LIST)
-    .map(sub => Object.values(sub))
-    .flat(2)
-  return flatArr[Math.floor(rng() * flatArr.length)]
+  return ANSWERS.result[Math.floor(rng() * ANSWERS.result.length)]
 }
 
 export default function Home() {
