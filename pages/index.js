@@ -190,14 +190,14 @@ export default function Home() {
   }
 
   const handleToggleDialog = panel => e => {
-    logEvent(getAnalytics(), 'dialog_open', { panel })
+    logEvent(getAnalytics(), `dialog_open_${panel}`)
     setDialog({
       ...dialog,
       [panel]: !dialog[panel]
     })
   }
   const handleToggleHardMode = e => {
-    logEvent(getAnalytics(), 'hard_mode', { open: hardMode })
+    logEvent(getAnalytics(), `hard_mode_${hardMode ? 'off' : 'on'}`)
     setHardMode(!hardMode)
   }
 
@@ -206,10 +206,10 @@ export default function Home() {
     const local = JSON.parse(localStorage.getItem('gameState'))
     // Use new word
     if (!local || getAnswer(local.gameDate, true)[6] !== answer[6]) {
-      logEvent(getAnalytics(), 'game_start', { reenter: false })
+      logEvent(getAnalytics(), 'game_start')
       return;
     }
-    logEvent(getAnalytics(), 'game_start', { reenter: true })
+    logEvent(getAnalytics(), 'game_start_reenter')
     // Use old word
     usingLocal.current = true
     setInputs(local.gameBoard)
@@ -252,7 +252,7 @@ export default function Home() {
     if (!ending) return
     // Only modify statistics when the latest row is submitted (and not imported)
     if (success) {
-      logEvent(getAnalytics(), 'game_end', { row: ending })
+      logEvent(getAnalytics(), `game_end_${ending}`)
       const local = localStorage.getItem('statistics')
       const stats = local ? JSON.parse(local) : {
         gamesPlayed: 0,
