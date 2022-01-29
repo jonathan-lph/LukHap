@@ -1,6 +1,6 @@
 import styles from '@styles/main/Header.module.sass'
 import clsx from 'clsx'
-import { Settings, HelpOutline, Statistics, Info } from '@components/icons'
+import { Settings, HelpOutline, Statistics, Info, Logo } from '@components/icons'
 import { Fragment, useEffect, useState } from 'react'
 import { HelpDialog, InfoDialog, SettingsDialog, StatisticsDialog } from '@components/dialog'
 
@@ -33,11 +33,8 @@ export default function Header({
             onClick={handleToggleDialog('info')}
           />
         </div>
-        <div className={styles.title}>
-          六合
-          {/* <span className={styles.subtitle}>
-            （遲到）
-          </span> */}
+        <div className={styles.logoDiv}>
+          <Logo className={styles.logo}/>
         </div>
         <div className={styles.buttons}>
           <Statistics 
