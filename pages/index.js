@@ -72,9 +72,8 @@ const isSameDate = (ms1, ms2) => {
     date1.getDate() === date2.getDate()
 }
 
-const getAnswer = () => {
-  const today = new Date()
-  const rng = new seedrandom(today.toLocaleDateString('sv'))
+const getAnswer = (date, asString = false) => {
+  const rng = new seedrandom(asString ? date : date.toLocaleDateString('sv'))
   const flatArr = Object
     .values(WORD_LIST)
     .map(sub => Object.values(sub))
@@ -104,7 +103,7 @@ export default function Home() {
 
   const usingLocal = useRef()
 
-  const answer = useMemo(getAnswer, [])
+  const answer = useMemo(() => getAnswer(new Date()), [])
 
   const setStatus = (mode, content) => {
     if (mode === 'error') {
@@ -206,7 +205,7 @@ export default function Home() {
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem('gameState'))
     // Use new word
-    if (!local || local.solution[6] !== answer[6]) {
+    if (!local || getAnswer(local.gameDate, true)[6] !== answer[6]) {
       logEvent(getAnalytics(), 'game_start', { reenter: false })
       return;
     }
@@ -223,15 +222,14 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    let currDate = new Date()
     localStorage.setItem('gameState', JSON.stringify({
       gameBoard: inputs,
       evaluations,
       hardMode,
       guessed,
       rowIndex: curr.row,
-      solution: answer,
-      lastCompletedTS: ending ? Date.now() : null,
-      lastPlayedTs: Date.now(),
+      gameDate: currDate.toLocaleDateString('sv'),
       gameStatus: ending === 'fail' ? 'LOST'
         : ending ? 'WON'
         : 'IN_PROGRESS'
