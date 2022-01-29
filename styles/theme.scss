@@ -4,6 +4,8 @@
 
 $main-window-width: 500px;
 $header-height: 50px;
+$tile-size: 50px;
+$tile-size-sm: 40px;
 
 // Animation Configuration
 
@@ -15,6 +17,12 @@ $slide-in-duration: 200ms;
 // CSS Variables
 
 $border-radius: 4px;
+
+$z-index: (
+  dialog: 1000px,
+  dialog-root: 1005px,
+  snackbar: 1500px,
+);
 
 $typography: (
   fontSize: 16px,

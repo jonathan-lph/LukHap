@@ -10,14 +10,16 @@
 .board
   width: clamp(300px, 350px, 100%)
   display: grid
-  grid-template-columns: repeat(6, 1fr)
+  grid-template-columns: repeat(6, $tile-size)
+  justify-content: center
   gap: spacing(1.5)
 
   .row
     display: contents
 
     .tile
-      aspect-ratio: 1
+      width: $tile-size
+      height: $tile-size
       display: flex
       justify-content: center
       align-items: center

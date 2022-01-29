@@ -52,7 +52,7 @@ export default function SettingsPanel({ hardMode, handleToggleHardMode, ...props
         <OptionTile
           label="夜"
           title="黑夜模式"
-          desc="使用黑夜模式。"
+          desc="＊Safari 用戶請重載網頁。"
           value={dark}
           onClick={toggleDarkMode}
         />

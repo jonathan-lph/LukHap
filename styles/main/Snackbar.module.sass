@@ -4,7 +4,7 @@
   position: fixed
   top: 20%
   left: 50%
-  transform: translateX(-50%)
+  transform: translateX(-50%) translateZ(map-get($z-index, snackbar))
   padding: spacing(3, 5)
   width: 200px
   height: 50px
@@ -15,7 +15,6 @@
   color: palette(text, primary)
   transition: opacity 200ms ease-in-out
   opacity: 0
-  z-index: 1500
 
   &.error
     opacity: 1
