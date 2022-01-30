@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Close } from '@components/icons'
 import styles from '@styles/common/Dialog.module.sass'
 
-export default function Dialog({ open, title, children, handleClose, className }) {
+export default function Dialog({ open, title, children, handleClose, className, noPadding }) {
 
   if (!open) return null
   return createPortal(
@@ -18,7 +18,7 @@ export default function Dialog({ open, title, children, handleClose, className }
           <div className={styles.title}>
             {title}
           </div>
-          <div className={styles.content}>
+          <div className={clsx(!noPadding && styles.content)}>
             {children}
           </div>
         </dialog>
