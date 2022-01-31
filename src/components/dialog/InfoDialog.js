@@ -143,10 +143,13 @@ const MajorLinks = () => {
 const MinorLinks = () => {
   return (
     <div className={styles.minorLinks}>
-      {minorLinks.map(({label, link}) => 
-        <a href={link} target="_blank" rel="noreferrer" key={label}>
-          {label}
-        </a>
+      {minorLinks.map(({label, link}) =>
+        <Fragment key={label}>
+          <a href={link} target="_blank" rel="noreferrer">
+            {label}
+          </a>
+          ．
+        </Fragment>
       )}
       <a href="mailto:jonathan.lph+lukhap@hotmail.com">
         聯絡
@@ -173,6 +176,8 @@ const ReportForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    if (submitButton.current) 
+      submitButton.current.value = '　……　'
     let message = '已回報！'
     try {
       const db = getFirestore()
