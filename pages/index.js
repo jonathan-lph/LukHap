@@ -58,6 +58,7 @@ const evaluate = (input, answer, _guessed) => {
     }
     evaluation[idx] = 'absent'
   })
+  evaluation.forEach(result => logEvent(getAnalytics(), `tile_${result}`))
   return { evaluation, guessed }
 }
 
