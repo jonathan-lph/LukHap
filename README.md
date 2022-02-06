@@ -12,5 +12,5 @@ Siu sei、Sek zi
 ### 已拒絕之缺詞
 
 挖金、真係、很好、造衫扮鬼\
-Ngyu、cit、Huk、J、泰、想、有、詢、肉、hong、Kwok、手我咩嚟㗎Cou食gei富
+Ngyu、cit、Huk、J、泰、想、有、詢、肉、hong、Kwok、手、我、咩嚟㗎、Cou、食、gei、富\
 Zou taat (糟蹋)
