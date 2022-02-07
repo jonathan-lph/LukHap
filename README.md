@@ -6,11 +6,11 @@
 
 ### 已收之缺詞
 
-老母、香港、新年、藍天、過年、高壓、盜竊、糟蹋、難過、將軍、開心\
-Siu sei、Sek zi 
+老母、香港、新年、藍天、過年、高壓、盜竊、糟蹋、難過、將軍、開心、部首\
+Siu sei、Sek zi、
 
 ### 已拒絕之缺詞
 
 挖金、真係、很好、造衫扮鬼\
-Ngyu、cit、Huk、J、泰、想、有、詢、肉、hong、Kwok、手、我、咩嚟㗎、Cou、食、gei、富\
-Zou taat (糟蹋)
+Ngyu、cit、Huk、J、泰、想、有、詢、肉、hong、Kwok、手、我、咩嚟㗎、Cou、食、gei、富、Bo、mai、收、min、mei、jai\
+Zou taat (糟蹋)、Zin mau
