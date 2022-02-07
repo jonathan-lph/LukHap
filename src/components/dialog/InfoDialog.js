@@ -205,7 +205,7 @@ const ReportForm = () => {
         className={styles.input}
         value={input}
         onChange={handleInput}
-        placeholder="漏字／音、錯字／音"
+        placeholder="漏詞／音（請輸入整個詞語）"
       />
       <input 
         type="submit" 
