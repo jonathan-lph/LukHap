@@ -39,6 +39,7 @@ export default function StatisticsDialog({ evaluations, ending, answer, ...props
         if (idx === arr.length-1) str += '\n'
       })
     })
+    str += 'https://lukhap.jonathanl.dev/'
     navigator.clipboard.writeText(str)
     shareButton.current?.classList.add(styles.copied)
     setTimeout(() => { 
