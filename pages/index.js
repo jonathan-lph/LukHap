@@ -62,8 +62,10 @@ const evaluate = (input, answer, _guessed) => {
   return { evaluation, guessed }
 }
 
+const getDate = (date) => `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+
 const getAnswer = (date, asString = false) => {
-  const rng = new seedrandom(asString ? date : date.toLocaleDateString('sv'))
+  const rng = new seedrandom(asString ? date : getDate(date))
   return ANSWERS.result[Math.floor(rng() * ANSWERS.result.length)]
 }
 
@@ -212,7 +214,7 @@ export default function Home() {
       hardMode,
       guessed,
       rowIndex: curr.row,
-      gameDate: currDate.toLocaleDateString('sv'),
+      gameDate: getDate(currDate),
       gameStatus: ending === 'fail' ? 'LOST'
         : ending ? 'WON'
         : 'IN_PROGRESS'
