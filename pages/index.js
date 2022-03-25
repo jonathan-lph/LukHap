@@ -20,6 +20,7 @@ const searchWord = input => {
   if (!initials.includes(input[0]) || !initials.includes(input[3])) 
     return;
   let arr = DICTIONARY[input[0]][input[3]]
+  if (!arr) return;
   outerloop: for (let i = 0; i < arr.length; i++) {
     let testWord = arr[i]
     for (let j = 1; j < 6; j++) {
