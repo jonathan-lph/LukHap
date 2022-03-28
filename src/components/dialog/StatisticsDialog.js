@@ -39,14 +39,7 @@ export default function StatisticsDialog({ evaluations, ending, answer, ...props
         if (idx === arr.length-1) str += '\n'
       })
     })
-    // navigator.clipboard.writeText(str)
-    navigator.clipboard.write([
-      new ClipboardItem({
-        'text/plain': new Promise(async (resolve) => {
-          resolve(new Blob([str], {type: 'text/plain'}))
-        })
-      })
-    ])
+    navigator.clipboard.writeText(str)
     shareButton.current?.classList.add(styles.copied)
     setTimeout(() => { 
       if (shareButton.current)
